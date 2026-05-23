@@ -44,16 +44,17 @@ class SportingAlertTests(unittest.TestCase):
         self.assertIn("Producto: Zapatillas Test", mensaje)
         self.assertIn("Precio: $25000", mensaje)
 
-    def test_permite_zapatillas_y_crocs(self):
+    def test_permite_productos_que_no_estan_excluidos(self):
         self.assertTrue(producto_permitido("Zapatillas adidas Grand Court Lo De Mujer"))
         self.assertTrue(producto_permitido("Crocs Classic Unisex"))
         self.assertTrue(producto_permitido("Botines Joma Aguila FG De Hombre"))
+        self.assertTrue(producto_permitido("Zapatos Mocasines Marcel E7052 De Niños"))
 
-    def test_rechaza_ojotas_y_productos_de_ninos(self):
+    def test_rechaza_ojotas_chinelas_y_sandalias(self):
         self.assertFalse(producto_permitido("Ojotas Rider R1 De Mujer"))
-        self.assertFalse(producto_permitido("Zapatillas Diversao Ale De Niños"))
-        self.assertFalse(producto_permitido("Botines Umbro Mutant De Niños"))
-        self.assertFalse(producto_permitido("Zapatillas Puma Rickie De Bebés"))
+        self.assertFalse(producto_permitido("Ojotas y Chinelas adidas Adilette Aqua Unisex"))
+        self.assertFalse(producto_permitido("Chinelas Rider Pump II De Hombre"))
+        self.assertFalse(producto_permitido("Sandalias Rider Free Style II De Niños"))
 
 
 if __name__ == "__main__":
