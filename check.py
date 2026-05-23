@@ -6,7 +6,7 @@ CHAT_ID = "7727821551"
 
 URL = "https://www.sporting.com.ar/sporting/calzado"
 
-PRECIO_LIMITE = 10000
+PRECIO_LIMITE = 1000000
 
 headers = {
     "User-Agent": "Mozilla/5.0"
