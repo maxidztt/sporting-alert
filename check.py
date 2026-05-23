@@ -1,4 +1,3 @@
-
 import asyncio
 import re
 import requests
@@ -25,20 +24,58 @@ def enviar_telegram(mensaje: str) -> None:
         print("Error enviando Telegram:", e)
 
 
-def extraer_precios(texto: str) -> list[int]:
-    precios = []
-    for match in re.findall(r"\$\s*([0-9][0-9\.\,]*)", texto):
-        limpio = match.replace(".", "").replace(",", "")
-        if limpio.isdigit():
-            precios.append(int(limpio))
-    return precios
+def limpiar_numero(texto: str) -> int | None:
+    numeros = re.sub(r"[^\d]", "", texto)
+    if numeros.isdigit():
+        return int(numeros)
+    return None
 
 
-async def buscar_tarjetas(page):
+def extraer_precio_real(texto: str) -> int | None:
+    lineas = [l.strip() for l in texto.split("\n") if l.strip()]
+
+    # 1) Primero buscar una línea con porcentaje de descuento
+    #    porque ahí suele estar el precio real con descuento.
+    for linea in lineas:
+        linea_minuscula = linea.lower()
+
+        if "cuotas" in linea_minuscula:
+            continue
+
+        if "%" in linea and "$" in linea:
+            precios = re.findall(r"\$\s*([0-9][0-9\.\,]*)", linea)
+            if precios:
+                candidatos = []
+                for p in precios:
+                    limpio = p.replace(".", "").replace(",", "")
+                    if limpio.isdigit():
+                        candidatos.append(int(limpio))
+                if candidatos:
+                    return min(candidatos)
+
+    # 2) Si no hubo línea con %, buscar una línea de precio normal
+    #    pero ignorando cuotas.
+    for linea in lineas:
+        linea_minuscula = linea.lower()
+
+        if "cuotas" in linea_minuscula:
+            continue
+
+        if "$" in linea:
+            precios = re.findall(r"\$\s*([0-9][0-9\.\,]*)", linea)
+            if precios:
+                limpio = precios[0].replace(".", "").replace(",", "")
+                if limpio.isdigit():
+                    return int(limpio)
+
+    return None
+
+
+async def obtener_tarjetas(page):
     selectores = [
+        "article",
         'a.vtex-product-summary-2-x-clearLink',
-        '.vtex-product-summary-2-x-container',
-        'article',
+        ".vtex-product-summary-2-x-container",
         '[data-testid="product-card"]',
     ]
 
@@ -71,9 +108,9 @@ async def obtener_link_producto(card):
             if "sporting.com.ar" in link:
                 return link
 
-        return None
+        return "https://www.sporting.com.ar/ofertas"
     except Exception:
-        return None
+        return "https://www.sporting.com.ar/ofertas"
 
 
 async def main():
@@ -91,11 +128,12 @@ async def main():
             await page.goto(url, wait_until="domcontentloaded", timeout=120000)
             await page.wait_for_timeout(10000)
 
-            for _ in range(4):
-                await page.mouse.wheel(0, 3500)
+            # scroll suave para que cargue el contenido dinámico
+            for _ in range(3):
+                await page.mouse.wheel(0, 3000)
                 await page.wait_for_timeout(2000)
 
-            tarjetas = await buscar_tarjetas(page)
+            tarjetas = await obtener_tarjetas(page)
             if tarjetas is None:
                 print("No se encontraron tarjetas en esta página.")
                 continue
@@ -116,28 +154,25 @@ async def main():
                         continue
 
                     nombre = lineas[0]
-                    precios = extraer_precios(texto)
+                    precio_real = extraer_precio_real(texto)
 
-                    if not precios:
+                    if precio_real is None:
                         continue
 
-                    precio_final = min(precios)
-                    print(nombre, precio_final)
+                    print(nombre, precio_real)
 
-                    if precio_final <= PRECIO_MAXIMO:
+                    if precio_real <= PRECIO_MAXIMO:
                         link = await obtener_link_producto(card)
-                        if not link:
-                            link = "https://www.sporting.com.ar/ofertas"
 
-                        key = f"{nombre}|{precio_final}|{link}"
+                        key = f"{nombre}|{precio_real}|{link}"
                         if key in vistos:
                             continue
-
                         vistos.add(key)
+
                         encontrados.append(
                             f"🔥 OFERTA SPORTING\n\n"
                             f"👟 {nombre}\n"
-                            f"💲 ${precio_final}\n\n"
+                            f"💲 ${precio_real}\n\n"
                             f"{link}"
                         )
 
