@@ -8,7 +8,7 @@ CHAT_ID = "7727821551"
 
 URL = "https://www.sporting.com.ar/sporting/calzado"
 
-PRECIO_MAXIMO = 90000
+PRECIO_MAXIMO = 35000
 
 
 def enviar_telegram(mensaje):
@@ -140,9 +140,7 @@ async def main():
 
             enviar_telegram(texto_final)
 
-        else:
 
-            enviar_telegram("❌ No se encontraron ofertas.")
 
 
 asyncio.run(main())
