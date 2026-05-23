@@ -19,18 +19,14 @@ def enviar_mensaje(texto: str):
     )
 
 
-def extraer_precio(texto: str):
-    matches = re.findall(r"\$\s*([0-9\.\,]+)", texto)
-    if not matches:
-        return None
-
+def extraer_precios(texto: str):
+    encontrados = re.findall(r"\$\s*([0-9][0-9\.\,]*)", texto)
     precios = []
-    for m in matches:
-        limpio = m.replace(".", "").replace(",", "")
+    for p in encontrados:
+        limpio = p.replace(".", "").replace(",", "")
         if limpio.isdigit():
             precios.append(int(limpio))
-
-    return min(precios) if precios else None
+    return precios
 
 
 async def main():
@@ -39,49 +35,42 @@ async def main():
         page = await browser.new_page(viewport={"width": 1600, "height": 2200})
 
         await page.goto(URL, wait_until="domcontentloaded", timeout=120000)
-        await page.wait_for_timeout(10000)
+        await page.wait_for_timeout(12000)
 
-        cards = page.locator("div.vtex-product-summary-2-x-container")
-        total = await cards.count()
+        # bajar un poco para que carguen productos dinámicos
+        for _ in range(3):
+            await page.evaluate("window.scrollBy(0, 1200)")
+            await page.wait_for_timeout(4000)
 
-        print("Productos encontrados:", total, flush=True)
+        texto_total = await page.locator("body").inner_text()
+        lineas = [l.strip() for l in texto_total.splitlines() if l.strip()]
 
-        if total == 0:
-            enviar_mensaje("No se encontraron productos en Sporting.")
-            await browser.close()
-            return
+        resultados = []
+        vistos = set()
 
-        encontrados = []
-
-        for i in range(total):
-            card = cards.nth(i)
-            try:
-                texto = (await card.inner_text()).strip()
-            except:
+        for i, linea in enumerate(lineas):
+            precios = extraer_precios(linea)
+            if not precios:
                 continue
 
-            precio = extraer_precio(texto)
+            precio = min(precios)
 
-            if precio is not None and precio <= PRECIO_LIMITE:
-                link = None
-                try:
-                    link = await card.locator("a").first.get_attribute("href")
-                except:
-                    pass
+            if precio <= PRECIO_LIMITE:
+                contexto_inicio = max(0, i - 1)
+                contexto_fin = min(len(lineas), i + 2)
+                contexto = " | ".join(lineas[contexto_inicio:contexto_fin])
 
-                if link and link.startswith("/"):
-                    link = "https://www.sporting.com.ar" + link
-
-                encontrados.append(
-                    f"🔥 Oferta encontrada\n\n{texto}\n\nPrecio: ${precio}\n{link or URL}"
-                )
+                if contexto not in vistos:
+                    vistos.add(contexto)
+                    resultados.append(
+                        f"🔥 Oferta encontrada\n\n{contexto}\n\nPrecio: ${precio}"
+                    )
 
         await browser.close()
 
-        if encontrados:
-            enviar_mensaje("\n\n".join(encontrados[:3]))
+        if resultados:
+            enviar_mensaje("\n\n".join(resultados[:5]))
         else:
-            enviar_mensaje("No encontré zapatillas por debajo del precio límite.")
-
+            enviar_mensaje("No encontré productos por debajo del precio límite.")
 
 asyncio.run(main())
