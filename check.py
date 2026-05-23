@@ -1,22 +1,14 @@
-
 import requests
-import sys
+from bs4 import BeautifulSoup
 
-TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
-CHAT_ID = "7727821551"
+URL = "https://www.sporting.com.ar/sporting/calzado"
+headers = {"User-Agent": "Mozilla/5.0"}
 
-url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+r = requests.get(URL, headers=headers, timeout=20)
+print("STATUS:", r.status_code)
+print("URL final:", r.url)
+print("Tamaño HTML:", len(r.text))
 
-response = requests.post(
-    url,
-    json={
-        "chat_id": CHAT_ID,
-        "text": "🔥 FUNCIONA EL BOT"
-    },
-    timeout=20
-)
-
-print("STATUS:", response.status_code, flush=True)
-print("RESPUESTA:", response.text, flush=True)
-
-sys.stdout.flush()
+soup = BeautifulSoup(r.text, "html.parser")
+productos = soup.find_all("div", class_="vtex-product-summary-2-x-container")
+print("Productos encontrados:", len(productos))
