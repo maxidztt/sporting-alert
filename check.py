@@ -10,7 +10,7 @@ CHAT_ID = "7727821551"
 
 URL = "https://www.sporting.com.ar/sporting/calzado"
 
-# precio máximo para avisar
+# precio máximo para alertar
 PRECIO_MAXIMO = 90000
 
 # =========================
@@ -18,6 +18,7 @@ PRECIO_MAXIMO = 90000
 # =========================
 
 def enviar_telegram(mensaje):
+
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
 
     data = {
@@ -43,6 +44,7 @@ response = requests.get(URL, headers=headers)
 
 soup = BeautifulSoup(response.text, "html.parser")
 
+# tarjetas de productos
 productos = soup.select("a.vtex-product-summary-2-x-clearLink")
 
 mensajes = []
@@ -68,7 +70,7 @@ for producto in productos[:20]:
         )
 
         # =========================
-        # LINK INDIVIDUAL
+        # LINK
         # =========================
 
         href = producto.get("href")
@@ -89,7 +91,7 @@ for producto in productos[:20]:
         precio_num = int(precio)
 
         # =========================
-        # FILTRO OFERTAS
+        # FILTRAR OFERTAS
         # =========================
 
         if precio_num <= PRECIO_MAXIMO:
@@ -122,4 +124,5 @@ if mensajes:
     enviar_telegram(texto)
 
 else:
-    enviar_telegram("No se encontraron ofertas.")
+
+    enviar_telegram("❌ No se encontraron ofertas.")
