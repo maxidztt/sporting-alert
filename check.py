@@ -13,7 +13,7 @@ BASE_API_URL = os.getenv(
 PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "39000"))
 PAGINAS_A_REVISAR = int(os.getenv("PAGINAS_A_REVISAR", "5"))
 PRODUCTOS_POR_PAGINA = int(os.getenv("PRODUCTOS_POR_PAGINA", "24"))
-PALABRAS_PERMITIDAS = ("zapatilla", "zapatillas", "crocs")
+PALABRAS_PERMITIDAS = ("zapatilla", "zapatillas", "crocs", "botin", "botines")
 PALABRAS_EXCLUIDAS = ("niño", "niños", "niña", "niñas", "bebe", "bebes", "bebé", "bebés")
 
 
