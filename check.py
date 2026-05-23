@@ -1,128 +1,148 @@
+import asyncio
+import re
 import requests
-from bs4 import BeautifulSoup
-
-# =========================
-# CONFIG
-# =========================
+from playwright.async_api import async_playwright
 
 TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = "7727821551"
 
 URL = "https://www.sporting.com.ar/sporting/calzado"
 
-# precio máximo para alertar
 PRECIO_MAXIMO = 90000
 
-# =========================
-# TELEGRAM
-# =========================
 
 def enviar_telegram(mensaje):
 
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
-
-    data = {
-        "chat_id": CHAT_ID,
-        "text": mensaje
-    }
-
-    requests.post(url, data=data)
-
-# =========================
-# SCRAPING
-# =========================
-
-headers = {
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/124.0 Safari/537.36"
+    requests.post(
+        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+        json={
+            "chat_id": CHAT_ID,
+            "text": mensaje
+        }
     )
-}
 
-response = requests.get(URL, headers=headers)
 
-soup = BeautifulSoup(response.text, "html.parser")
+def limpiar_precio(texto):
 
-# tarjetas de productos
-productos = soup.select("a.vtex-product-summary-2-x-clearLink")
+    numeros = re.sub(r"[^\d]", "", texto)
 
-mensajes = []
+    if numeros.isdigit():
+        return int(numeros)
 
-for producto in productos[:20]:
+    return None
 
-    try:
 
-        # =========================
-        # NOMBRE
-        # =========================
+async def main():
 
-        nombre_tag = producto.select_one(
-            ".vtex-product-summary-2-x-productBrand"
+    async with async_playwright() as p:
+
+        browser = await p.chromium.launch(headless=True)
+
+        page = await browser.new_page()
+
+        print("Abriendo Sporting...")
+
+        await page.goto(
+            URL,
+            wait_until="domcontentloaded",
+            timeout=120000
         )
 
-        # =========================
-        # PRECIO FINAL
-        # =========================
+        await page.wait_for_timeout(12000)
 
-        precio_tag = producto.select_one(
-            ".selling-price-value"
-        )
+        # scroll para cargar productos
+        for _ in range(5):
 
-        # =========================
-        # LINK
-        # =========================
+            await page.mouse.wheel(0, 4000)
 
-        href = producto.get("href")
+            await page.wait_for_timeout(3000)
 
-        if not nombre_tag or not precio_tag or not href:
-            continue
+        productos = await page.locator("article").all()
 
-        nombre = nombre_tag.text.strip()
+        print(f"Productos encontrados: {len(productos)}")
 
-        precio = (
-            precio_tag.text
-            .replace("$", "")
-            .replace(".", "")
-            .replace(",", "")
-            .strip()
-        )
+        mensajes = []
 
-        precio_num = int(precio)
+        for producto in productos:
 
-        # =========================
-        # FILTRAR OFERTAS
-        # =========================
+            try:
 
-        if precio_num <= PRECIO_MAXIMO:
+                # link REAL
+                link = None
 
-            if href.startswith("/"):
-                link = "https://www.sporting.com.ar" + href
-            else:
-                link = href
+                anchors = producto.locator("a")
 
-            mensaje = (
-                f"🔥 OFERTA\n\n"
-                f"👟 {nombre}\n"
-                f"💲 ${precio_num}\n\n"
-                f"{link}"
-            )
+                total_links = await anchors.count()
 
-            mensajes.append(mensaje)
+                for i in range(total_links):
 
-    except Exception as e:
-        print("ERROR:", e)
+                    href = await anchors.nth(i).get_attribute("href")
 
-# =========================
-# ENVIAR MENSAJES
-# =========================
+                    if href and "/p" in href:
 
-if mensajes:
+                        if href.startswith("/"):
+                            link = "https://www.sporting.com.ar" + href
+                        else:
+                            link = href
 
-    texto = "\n\n────────────\n\n".join(mensajes[:5])
+                        break
 
-    enviar_telegram(texto)
+                texto = await producto.inner_text()
 
-else:
+                lineas = [
+                    l.strip()
+                    for l in texto.split("\n")
+                    if l.strip()
+                ]
 
-    enviar_telegram("❌ No se encontraron ofertas.")
+                if len(lineas) < 2:
+                    continue
+
+                nombre = lineas[0]
+
+                # buscar TODOS los precios
+                precios = []
+
+                for linea in lineas:
+
+                    if "$" in linea:
+
+                        precio = limpiar_precio(linea)
+
+                        if precio:
+                            precios.append(precio)
+
+                if not precios:
+                    continue
+
+                # el precio más chico suele ser el FINAL
+                precio_final = min(precios)
+
+                if precio_final <= PRECIO_MAXIMO:
+
+                    mensaje = (
+                        f"🔥 OFERTA\n\n"
+                        f"👟 {nombre}\n"
+                        f"💲 ${precio_final}\n\n"
+                        f"{link if link else URL}"
+                    )
+
+                    mensajes.append(mensaje)
+
+            except Exception as e:
+                print(e)
+
+        await browser.close()
+
+        if mensajes:
+
+            texto_final = "\n\n──────────────\n\n".join(mensajes[:5])
+
+            enviar_telegram(texto_final)
+
+        else:
+
+            enviar_telegram("❌ No se encontraron ofertas.")
+
+
+asyncio.run(main())
