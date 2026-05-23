@@ -1,94 +1,87 @@
+
 import asyncio
+import re
 import requests
-from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright
 
 TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = "7727821551"
 
 URL = "https://www.sporting.com.ar/sporting/calzado"
+PRECIO_LIMITE = 10000
 
-PRECIO_LIMITE = 1000000
+
+def enviar_mensaje(texto: str):
+    requests.post(
+        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+        json={"chat_id": CHAT_ID, "text": texto},
+        timeout=20
+    )
 
 
-async def enviar_mensaje(texto):
-    url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+def extraer_precio(texto: str):
+    matches = re.findall(r"\$\s*([0-9\.\,]+)", texto)
+    if not matches:
+        return None
 
-    requests.get(url, params={
-        "chat_id": CHAT_ID,
-        "text": texto
-    })
+    precios = []
+    for m in matches:
+        limpio = m.replace(".", "").replace(",", "")
+        if limpio.isdigit():
+            precios.append(int(limpio))
+
+    return min(precios) if precios else None
 
 
 async def main():
-
     async with async_playwright() as p:
-
         browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page(viewport={"width": 1600, "height": 2200})
 
-        page = await browser.new_page()
-
-        print("Abriendo Sporting...")
-
-        await page.goto(
-            URL,
-            wait_until="domcontentloaded",
-            timeout=120000
-        )
-
-        # Esperar a que carguen los productos
+        await page.goto(URL, wait_until="domcontentloaded", timeout=120000)
         await page.wait_for_timeout(10000)
 
-        html = await page.content()
+        cards = page.locator("div.vtex-product-summary-2-x-container")
+        total = await cards.count()
 
-        soup = BeautifulSoup(html, "html.parser")
+        print("Productos encontrados:", total, flush=True)
 
-        productos = soup.find_all(
-            "div",
-            class_="vtex-product-summary-2-x-container"
-        )
-
-        print(f"Productos encontrados: {len(productos)}")
-
-        if len(productos) == 0:
-            await enviar_mensaje("❌ No se encontraron productos")
+        if total == 0:
+            enviar_mensaje("No se encontraron productos en Sporting.")
+            await browser.close()
             return
 
-        encontrados = 0
+        encontrados = []
 
-        for p in productos:
+        for i in range(total):
+            card = cards.nth(i)
+            try:
+                texto = (await card.inner_text()).strip()
+            except:
+                continue
 
-            texto = p.get_text(" ", strip=True)
+            precio = extraer_precio(texto)
 
-            precios = []
+            if precio is not None and precio <= PRECIO_LIMITE:
+                link = None
+                try:
+                    link = await card.locator("a").first.get_attribute("href")
+                except:
+                    pass
 
-            for s in texto.split():
+                if link and link.startswith("/"):
+                    link = "https://www.sporting.com.ar" + link
 
-                numero = s.replace(".", "").replace("$", "")
-
-                if numero.isdigit():
-                    precios.append(int(numero))
-
-            if precios:
-
-                precio = min(precios)
-
-                if precio <= PRECIO_LIMITE:
-
-                    mensaje = (
-                        f"🔥 Oferta encontrada\n\n"
-                        f"{texto}\n\n"
-                        f"💲 Precio: ${precio}"
-                    )
-
-                    await enviar_mensaje(mensaje)
-
-                    encontrados += 1
-
-        if encontrados == 0:
-            await enviar_mensaje("⚠️ No hay ofertas por debajo del límite")
+                encontrados.append(
+                    f"🔥 Oferta encontrada\n\n{texto}\n\nPrecio: ${precio}\n{link or URL}"
+                )
 
         await browser.close()
+
+        if encontrados:
+            enviar_mensaje("\n\n".join(encontrados[:3]))
+        else:
+            enviar_mensaje("No encontré zapatillas por debajo del precio límite.")
 
 
 asyncio.run(main())
