@@ -6,7 +6,7 @@ from playwright.async_api import async_playwright
 TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = "7727821551"
 
-BASE_URL = "https://www.sporting.com.ar/sporting/calzado?page="
+BASE_URL = "https://www.sporting.com.ar/ofertas?initialMap=category-1,ofertas&initialQuery=sporting/ofertas&map=category-1,category-2,ofertas&order=OrderByPriceASC&query=/sporting/calzado/ofertas&searchState"
 
 # SOLO ALERTAS MENORES A 35 MIL
 PRECIO_MAXIMO = 35000
