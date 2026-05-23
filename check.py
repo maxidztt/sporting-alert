@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-TOKEN = "8843148366:AAHVJxCJ_IrtcGsct14yBlZDIUALj2AjUZ8"
+TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = "7727821551"
 
 URL = "https://www.sporting.com.ar/sporting/calzado"
