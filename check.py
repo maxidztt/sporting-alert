@@ -1,189 +1,136 @@
-import asyncio
-import re
-import requests
-from urllib.parse import urljoin
-from playwright.async_api import async_playwright
+import os
+from typing import Any
 
-TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
-CHAT_ID = "7727821551"
 
-BASE_URL = "https://www.sporting.com.ar/ofertas?initialMap=category-1,ofertas&initialQuery=sporting/ofertas&map=category-1,category-2,genero,genero,ofertas&order=OrderByPriceASC&query=/sporting/calzado/hombre/mujer/ofertas&searchState"
+TOKEN = os.getenv("TELEGRAM_TOKEN", "")
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
-PRECIO_MAXIMO = 39000
-PAGINAS_A_REVISAR = 5
+BASE_API_URL = os.getenv(
+    "SPORTING_API_URL",
+    "https://www.sporting.com.ar/api/catalog_system/pub/products/search/sporting/calzado",
+)
+
+PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "39000"))
+PAGINAS_A_REVISAR = int(os.getenv("PAGINAS_A_REVISAR", "5"))
+PRODUCTOS_POR_PAGINA = int(os.getenv("PRODUCTOS_POR_PAGINA", "24"))
 
 
 def enviar_telegram(mensaje: str) -> None:
-    try:
-        requests.post(
-            f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-            json={"chat_id": CHAT_ID, "text": mensaje},
-            timeout=20,
-        )
-    except Exception as e:
-        print("Error enviando Telegram:", e)
+    import requests
+
+    if not TOKEN or not CHAT_ID:
+        raise RuntimeError("Faltan TELEGRAM_TOKEN o TELEGRAM_CHAT_ID en las variables de entorno.")
+
+    response = requests.post(
+        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+        json={"chat_id": CHAT_ID, "text": mensaje},
+        timeout=20,
+    )
+
+    if not response.ok:
+        print("Telegram respondio con error:", response.status_code, response.text)
+
+    response.raise_for_status()
+
+    data = response.json()
+    if not data.get("ok"):
+        raise RuntimeError(f"Telegram no acepto el mensaje: {data}")
 
 
-def limpiar_numero(texto: str) -> int | None:
-    numeros = re.sub(r"[^\d]", "", texto)
-    if numeros.isdigit():
-        return int(numeros)
-    return None
+def obtener_productos(numero_pagina: int) -> list[dict[str, Any]]:
+    import requests
+
+    desde = (numero_pagina - 1) * PRODUCTOS_POR_PAGINA
+    hasta = desde + PRODUCTOS_POR_PAGINA - 1
+
+    response = requests.get(
+        BASE_API_URL,
+        params={
+            "map": "c,c",
+            "O": "OrderByPriceASC",
+            "_from": desde,
+            "_to": hasta,
+        },
+        headers={"User-Agent": "Mozilla/5.0"},
+        timeout=30,
+    )
+
+    if not response.ok:
+        print("Sporting respondio con error:", response.status_code, response.text[:500])
+
+    response.raise_for_status()
+    return response.json()
 
 
-def extraer_precio_real(texto: str) -> int | None:
-    lineas = [l.strip() for l in texto.split("\n") if l.strip()]
+def extraer_precio_producto(producto: dict[str, Any]) -> int | None:
+    precios = []
 
-    # 1) Primero buscar una línea con porcentaje de descuento
-    #    porque ahí suele estar el precio real con descuento.
-    for linea in lineas:
-        linea_minuscula = linea.lower()
+    for item in producto.get("items", []):
+        for seller in item.get("sellers", []):
+            oferta = seller.get("commertialOffer", {})
+            precio = oferta.get("Price")
+            stock = oferta.get("AvailableQuantity", 0)
 
-        if "cuotas" in linea_minuscula:
-            continue
+            if precio and stock:
+                precios.append(float(precio))
 
-        if "%" in linea and "$" in linea:
-            precios = re.findall(r"\$\s*([0-9][0-9\.\,]*)", linea)
-            if precios:
-                candidatos = []
-                for p in precios:
-                    limpio = p.replace(".", "").replace(",", "")
-                    if limpio.isdigit():
-                        candidatos.append(int(limpio))
-                if candidatos:
-                    return min(candidatos)
+    if not precios:
+        return None
 
-    # 2) Si no hubo línea con %, buscar una línea de precio normal
-    #    pero ignorando cuotas.
-    for linea in lineas:
-        linea_minuscula = linea.lower()
-
-        if "cuotas" in linea_minuscula:
-            continue
-
-        if "$" in linea:
-            precios = re.findall(r"\$\s*([0-9][0-9\.\,]*)", linea)
-            if precios:
-                limpio = precios[0].replace(".", "").replace(",", "")
-                if limpio.isdigit():
-                    return int(limpio)
-
-    return None
+    return int(min(precios))
 
 
-async def obtener_tarjetas(page):
-    selectores = [
-        "article",
-        'a.vtex-product-summary-2-x-clearLink',
-        ".vtex-product-summary-2-x-container",
-        '[data-testid="product-card"]',
-    ]
-
-    for selector in selectores:
-        loc = page.locator(selector)
-        try:
-            cantidad = await loc.count()
-        except Exception:
-            cantidad = 0
-
-        if cantidad > 0:
-            print(f"Selector usado: {selector} ({cantidad})")
-            return loc
-
-    return None
+def formatear_oferta(nombre: str, precio: int, link: str) -> str:
+    return "\n".join(
+        [
+            "OFERTA SPORTING",
+            "",
+            f"Producto: {nombre}",
+            f"Precio: ${precio}",
+            "",
+            link,
+        ]
+    )
 
 
-async def obtener_link_producto(card):
-    try:
-        anchors = card.locator("a")
-        total = await anchors.count()
+def main() -> None:
+    encontrados = []
+    vistos = set()
 
-        for i in range(total):
-            href = await anchors.nth(i).get_attribute("href")
-            if not href:
+    for numero_pagina in range(1, PAGINAS_A_REVISAR + 1):
+        print(f"Revisando pagina {numero_pagina}")
+        productos = obtener_productos(numero_pagina)
+        print(f"Productos encontrados: {len(productos)}")
+
+        if not productos:
+            break
+
+        for producto in productos:
+            nombre = producto.get("productName", "").strip()
+            link = producto.get("link", "https://www.sporting.com.ar/sporting/calzado")
+            precio = extraer_precio_producto(producto)
+
+            if not nombre or precio is None:
                 continue
 
-            link = urljoin("https://www.sporting.com.ar", href)
+            print(nombre, precio)
 
-            if "sporting.com.ar" in link:
-                return link
+            if precio <= PRECIO_MAXIMO:
+                key = f"{nombre}|{precio}|{link}"
+                if key in vistos:
+                    continue
 
-        return "https://www.sporting.com.ar/ofertas"
-    except Exception:
-        return "https://www.sporting.com.ar/ofertas"
+                vistos.add(key)
+                encontrados.append(formatear_oferta(nombre, precio, link))
 
+    if not encontrados:
+        print(f"No hay productos por debajo de ${PRECIO_MAXIMO}.")
+        return
 
-async def main():
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page(viewport={"width": 1600, "height": 2200})
-
-        encontrados = []
-        vistos = set()
-
-        for numero_pagina in range(1, PAGINAS_A_REVISAR + 1):
-            url = f"{BASE_URL}&page={numero_pagina}"
-            print(f"Abriendo: {url}")
-
-            await page.goto(url, wait_until="domcontentloaded", timeout=120000)
-            await page.wait_for_timeout(10000)
-
-            # scroll suave para que cargue el contenido dinámico
-            for _ in range(3):
-                await page.mouse.wheel(0, 3000)
-                await page.wait_for_timeout(2000)
-
-            tarjetas = await obtener_tarjetas(page)
-            if tarjetas is None:
-                print("No se encontraron tarjetas en esta página.")
-                continue
-
-            total = await tarjetas.count()
-            print(f"Tarjetas encontradas: {total}")
-
-            for i in range(total):
-                try:
-                    card = tarjetas.nth(i)
-                    texto = (await card.inner_text()).strip()
-
-                    if not texto:
-                        continue
-
-                    lineas = [l.strip() for l in texto.split("\n") if l.strip()]
-                    if len(lineas) < 2:
-                        continue
-
-                    nombre = lineas[0]
-                    precio_real = extraer_precio_real(texto)
-
-                    if precio_real is None:
-                        continue
-
-                    print(nombre, precio_real)
-
-                    if precio_real <= PRECIO_MAXIMO:
-                        link = await obtener_link_producto(card)
-
-                        key = f"{nombre}|{precio_real}|{link}"
-                        if key in vistos:
-                            continue
-                        vistos.add(key)
-
-                        encontrados.append(
-                            f"🔥 OFERTA SPORTING\n\n"
-                            f"👟 {nombre}\n"
-                            f"💲 ${precio_real}\n\n"
-                            f"{link}"
-                        )
-
-                except Exception as e:
-                    print("ERROR tarjeta:", e)
-
-        await browser.close()
-
-        if encontrados:
-            mensaje_final = "\n\n──────────────\n\n".join(encontrados[:10])
-            enviar_telegram(mensaje_final)
+    mensaje_final = "\n\n--------------\n\n".join(encontrados[:10])
+    enviar_telegram(mensaje_final)
+    print(f"Mensaje enviado con {min(len(encontrados), 10)} ofertas.")
 
 
-asyncio.run(main())
+if __name__ == "__main__":
+    main()
