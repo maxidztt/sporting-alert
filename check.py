@@ -1,6 +1,8 @@
+
 import asyncio
 import re
 import requests
+from urllib.parse import urljoin
 from playwright.async_api import async_playwright
 
 TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
@@ -8,147 +10,145 @@ CHAT_ID = "7727821551"
 
 BASE_URL = "https://www.sporting.com.ar/ofertas?initialMap=category-1,ofertas&initialQuery=sporting/ofertas&map=category-1,category-2,genero,genero,ofertas&order=OrderByPriceASC&query=/sporting/calzado/hombre/mujer/ofertas&searchState"
 
-# ALERTAS SOLO POR DEBAJO DE ESTE PRECIO
 PRECIO_MAXIMO = 39000
+PAGINAS_A_REVISAR = 5
 
 
-# =========================
-# TELEGRAM
-# =========================
-
-def enviar_telegram(mensaje):
-
-    requests.post(
-        f"https://api.telegram.org/bot{TOKEN}/sendMessage",
-        json={
-            "chat_id": CHAT_ID,
-            "text": mensaje
-        }
-    )
+def enviar_telegram(mensaje: str) -> None:
+    try:
+        requests.post(
+            f"https://api.telegram.org/bot{TOKEN}/sendMessage",
+            json={"chat_id": CHAT_ID, "text": mensaje},
+            timeout=20,
+        )
+    except Exception as e:
+        print("Error enviando Telegram:", e)
 
 
-# =========================
-# LIMPIAR PRECIO
-# =========================
+def extraer_precios(texto: str) -> list[int]:
+    precios = []
+    for match in re.findall(r"\$\s*([0-9][0-9\.\,]*)", texto):
+        limpio = match.replace(".", "").replace(",", "")
+        if limpio.isdigit():
+            precios.append(int(limpio))
+    return precios
 
-def limpiar_precio(texto):
 
-    numeros = re.sub(r"[^\d]", "", texto)
+async def buscar_tarjetas(page):
+    selectores = [
+        'a.vtex-product-summary-2-x-clearLink',
+        '.vtex-product-summary-2-x-container',
+        'article',
+        '[data-testid="product-card"]',
+    ]
 
-    if numeros.isdigit():
-        return int(numeros)
+    for selector in selectores:
+        loc = page.locator(selector)
+        try:
+            cantidad = await loc.count()
+        except Exception:
+            cantidad = 0
+
+        if cantidad > 0:
+            print(f"Selector usado: {selector} ({cantidad})")
+            return loc
 
     return None
 
 
-# =========================
-# MAIN
-# =========================
+async def obtener_link_producto(card):
+    try:
+        anchors = card.locator("a")
+        total = await anchors.count()
+
+        for i in range(total):
+            href = await anchors.nth(i).get_attribute("href")
+            if not href:
+                continue
+
+            link = urljoin("https://www.sporting.com.ar", href)
+
+            if "sporting.com.ar" in link:
+                return link
+
+        return None
+    except Exception:
+        return None
+
 
 async def main():
-
     async with async_playwright() as p:
-
         browser = await p.chromium.launch(headless=True)
+        page = await browser.new_page(viewport={"width": 1600, "height": 2200})
 
-        page = await browser.new_page()
+        encontrados = []
+        vistos = set()
 
-        mensajes = []
+        for numero_pagina in range(1, PAGINAS_A_REVISAR + 1):
+            url = f"{BASE_URL}&page={numero_pagina}"
+            print(f"Abriendo: {url}")
 
-        # RECORRER PÁGINAS
-        for numero_pagina in range(1, 6):
+            await page.goto(url, wait_until="domcontentloaded", timeout=120000)
+            await page.wait_for_timeout(10000)
 
-            url = BASE_URL + f"&page={numero_pagina}"
+            for _ in range(4):
+                await page.mouse.wheel(0, 3500)
+                await page.wait_for_timeout(2000)
 
-            print(f"\nAbriendo: {url}")
+            tarjetas = await buscar_tarjetas(page)
+            if tarjetas is None:
+                print("No se encontraron tarjetas en esta página.")
+                continue
 
-            await page.goto(
-                url,
-                wait_until="domcontentloaded",
-                timeout=120000
-            )
+            total = await tarjetas.count()
+            print(f"Tarjetas encontradas: {total}")
 
-            await page.wait_for_timeout(6000)
-
-            productos = await page.locator("article").all()
-
-            print(f"Productos encontrados: {len(productos)}")
-
-            for producto in productos:
-
+            for i in range(total):
                 try:
+                    card = tarjetas.nth(i)
+                    texto = (await card.inner_text()).strip()
 
-                    texto = await producto.inner_text()
+                    if not texto:
+                        continue
 
-                    lineas = [
-                        l.strip()
-                        for l in texto.split("\n")
-                        if l.strip()
-                    ]
-
+                    lineas = [l.strip() for l in texto.split("\n") if l.strip()]
                     if len(lineas) < 2:
                         continue
 
                     nombre = lineas[0]
-
-                    precios = []
-
-                    for linea in lineas:
-
-                        if "$" in linea:
-
-                            precio = limpiar_precio(linea)
-
-                            if precio:
-                                precios.append(precio)
+                    precios = extraer_precios(texto)
 
                     if not precios:
                         continue
 
-                    # TOMA EL PRECIO MÁS BAJO
                     precio_final = min(precios)
-
                     print(nombre, precio_final)
 
-                    # SOLO OFERTAS MENORES AL LÍMITE
                     if precio_final <= PRECIO_MAXIMO:
+                        link = await obtener_link_producto(card)
+                        if not link:
+                            link = "https://www.sporting.com.ar/ofertas"
 
-                        # BUSCAR LINK DEL PRODUCTO
-                        link = await producto.locator("a").first.get_attribute("href")
+                        key = f"{nombre}|{precio_final}|{link}"
+                        if key in vistos:
+                            continue
 
-                        if link:
-
-                            if not link.startswith("http"):
-                                link = "https://www.sporting.com.ar" + link
-
-                        else:
-                            link = "https://www.sporting.com.ar"
-
-                        mensaje = (
+                        vistos.add(key)
+                        encontrados.append(
                             f"🔥 OFERTA SPORTING\n\n"
                             f"👟 {nombre}\n"
                             f"💲 ${precio_final}\n\n"
                             f"{link}"
                         )
 
-                        # EVITAR REPETIDOS
-                        if mensaje not in mensajes:
-                            mensajes.append(mensaje)
-
                 except Exception as e:
-                    print("ERROR:", e)
+                    print("ERROR tarjeta:", e)
 
         await browser.close()
 
-        # SOLO ENVÍA SI HAY OFERTAS
-        if mensajes:
-
-            texto_final = "\n\n──────────────\n\n".join(mensajes[:10])
-
-            enviar_telegram(texto_final)
-
-        else:
-            print("No se encontraron ofertas.")
+        if encontrados:
+            mensaje_final = "\n\n──────────────\n\n".join(encontrados[:10])
+            enviar_telegram(mensaje_final)
 
 
 asyncio.run(main())
