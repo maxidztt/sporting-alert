@@ -6,10 +6,15 @@ from playwright.async_api import async_playwright
 TOKEN = "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = "7727821551"
 
-URL = "https://www.sporting.com.ar/sporting/calzado"
+BASE_URL = "https://www.sporting.com.ar/sporting/calzado?page="
 
+# SOLO ALERTAS MENORES A 35 MIL
 PRECIO_MAXIMO = 35000
 
+
+# =========================
+# TELEGRAM
+# =========================
 
 def enviar_telegram(mensaje):
 
@@ -22,6 +27,10 @@ def enviar_telegram(mensaje):
     )
 
 
+# =========================
+# LIMPIAR PRECIO
+# =========================
+
 def limpiar_precio(texto):
 
     numeros = re.sub(r"[^\d]", "", texto)
@@ -32,6 +41,10 @@ def limpiar_precio(texto):
     return None
 
 
+# =========================
+# MAIN
+# =========================
+
 async def main():
 
     async with async_playwright() as p:
@@ -40,107 +53,85 @@ async def main():
 
         page = await browser.new_page()
 
-        print("Abriendo Sporting...")
-
-        await page.goto(
-            URL,
-            wait_until="domcontentloaded",
-            timeout=120000
-        )
-
-        await page.wait_for_timeout(12000)
-
-        # scroll para cargar productos
-        for _ in range(5):
-
-            await page.mouse.wheel(0, 4000)
-
-            await page.wait_for_timeout(3000)
-
-        productos = await page.locator("article").all()
-
-        print(f"Productos encontrados: {len(productos)}")
-
         mensajes = []
 
-        for producto in productos:
+        # recorrer páginas
+        for numero_pagina in range(1, 6):
 
-            try:
+            url = BASE_URL + str(numero_pagina)
 
-                # link REAL
-                link = None
+            print(f"Abriendo {url}")
 
-                anchors = producto.locator("a")
+            await page.goto(
+                url,
+                wait_until="domcontentloaded",
+                timeout=120000
+            )
 
-                total_links = await anchors.count()
+            await page.wait_for_timeout(6000)
 
-                for i in range(total_links):
+            productos = await page.locator("article").all()
 
-                    href = await anchors.nth(i).get_attribute("href")
+            print(f"Productos encontrados: {len(productos)}")
 
-                    if href and "/p" in href:
+            for producto in productos:
 
-                        if href.startswith("/"):
-                            link = "https://www.sporting.com.ar" + href
-                        else:
-                            link = href
+                try:
 
-                        break
+                    texto = await producto.inner_text()
 
-                texto = await producto.inner_text()
+                    lineas = [
+                        l.strip()
+                        for l in texto.split("\n")
+                        if l.strip()
+                    ]
 
-                lineas = [
-                    l.strip()
-                    for l in texto.split("\n")
-                    if l.strip()
-                ]
+                    if len(lineas) < 2:
+                        continue
 
-                if len(lineas) < 2:
-                    continue
+                    nombre = lineas[0]
 
-                nombre = lineas[0]
+                    precios = []
 
-                # buscar TODOS los precios
-                precios = []
+                    for linea in lineas:
 
-                for linea in lineas:
+                        if "$" in linea:
 
-                    if "$" in linea:
+                            precio = limpiar_precio(linea)
 
-                        precio = limpiar_precio(linea)
+                            if precio:
+                                precios.append(precio)
 
-                        if precio:
-                            precios.append(precio)
+                    if not precios:
+                        continue
 
-                if not precios:
-                    continue
+                    # toma el precio MÁS BAJO
+                    precio_final = min(precios)
 
-                # el precio más chico suele ser el FINAL
-                precio_final = min(precios)
+                    # SOLO OFERTAS MENORES A 35 MIL
+                    if precio_final <= PRECIO_MAXIMO:
 
-                if precio_final <= PRECIO_MAXIMO:
+                        mensaje = (
+                            f"🔥 OFERTA SPORTING\n\n"
+                            f"👟 {nombre}\n"
+                            f"💲 ${precio_final}"
+                        )
 
-                    mensaje = (
-                        f"🔥 OFERTA\n\n"
-                        f"👟 {nombre}\n"
-                        f"💲 ${precio_final}\n\n"
-                        f"{link if link else URL}"
-                    )
+                        # evitar repetidos
+                        if mensaje not in mensajes:
+                            mensajes.append(mensaje)
 
-                    mensajes.append(mensaje)
-
-            except Exception as e:
-                print(e)
+                except Exception as e:
+                    print("ERROR:", e)
 
         await browser.close()
 
+        # SOLO ENVÍA SI HAY OFERTAS
         if mensajes:
 
-            texto_final = "\n\n──────────────\n\n".join(mensajes[:5])
+            texto_final = "\n\n──────────────\n\n".join(mensajes[:10])
 
             enviar_telegram(texto_final)
-
-
 
 
 asyncio.run(main())
