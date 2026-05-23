@@ -1,6 +1,6 @@
 import unittest
 
-from check import extraer_precio_producto, formatear_oferta
+from check import extraer_precio_producto, formatear_oferta, producto_permitido
 
 
 class SportingAlertTests(unittest.TestCase):
@@ -43,6 +43,15 @@ class SportingAlertTests(unittest.TestCase):
         self.assertIn("OFERTA SPORTING", mensaje)
         self.assertIn("Producto: Zapatillas Test", mensaje)
         self.assertIn("Precio: $25000", mensaje)
+
+    def test_permite_zapatillas_y_crocs(self):
+        self.assertTrue(producto_permitido("Zapatillas adidas Grand Court Lo De Mujer"))
+        self.assertTrue(producto_permitido("Crocs Classic Unisex"))
+
+    def test_rechaza_ojotas_y_productos_de_ninos(self):
+        self.assertFalse(producto_permitido("Ojotas Rider R1 De Mujer"))
+        self.assertFalse(producto_permitido("Zapatillas Diversao Ale De Niños"))
+        self.assertFalse(producto_permitido("Zapatillas Puma Rickie De Bebés"))
 
 
 if __name__ == "__main__":

@@ -13,6 +13,8 @@ BASE_API_URL = os.getenv(
 PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "39000"))
 PAGINAS_A_REVISAR = int(os.getenv("PAGINAS_A_REVISAR", "5"))
 PRODUCTOS_POR_PAGINA = int(os.getenv("PRODUCTOS_POR_PAGINA", "24"))
+PALABRAS_PERMITIDAS = ("zapatilla", "zapatillas", "crocs")
+PALABRAS_EXCLUIDAS = ("niño", "niños", "niña", "niñas", "bebe", "bebes", "bebé", "bebés")
 
 
 def enviar_telegram(mensaje: str) -> None:
@@ -93,6 +95,15 @@ def formatear_oferta(nombre: str, precio: int, link: str) -> str:
     )
 
 
+def producto_permitido(nombre: str) -> bool:
+    nombre_normalizado = nombre.lower()
+
+    if not any(palabra in nombre_normalizado for palabra in PALABRAS_PERMITIDAS):
+        return False
+
+    return not any(palabra in nombre_normalizado for palabra in PALABRAS_EXCLUIDAS)
+
+
 def main() -> None:
     encontrados = []
     vistos = set()
@@ -111,6 +122,10 @@ def main() -> None:
             precio = extraer_precio_producto(producto)
 
             if not nombre or precio is None:
+                continue
+
+            if not producto_permitido(nombre):
+                print(f"Producto ignorado por filtro: {nombre}")
                 continue
 
             print(nombre, precio)
