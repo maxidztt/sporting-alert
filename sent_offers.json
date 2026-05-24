@@ -1,5 +1,11 @@
 {
   "sent": {
+    "https://www.sporting.com.ar/botines-joma-aguila-2417-fg-de-hombre-aguw2417fg-000/p|40999": {
+      "name": "Botines Joma Aguila 2417 FG De Hombre",
+      "price": 40999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-2417-fg-de-hombre-aguw2417fg-000/p",
+      "sent_at": "2026-05-24T04:34:24.713622+00:00"
+    },
     "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2301fg-000/p|38999": {
       "name": "Botines Joma Aguila FG De Hombre",
       "price": 38999,
@@ -17,6 +23,12 @@
       "price": 36399,
       "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2409fg-000/p",
       "sent_at": "2026-05-24T02:44:24.944383+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper-temple-cs-unisex-2265690-000/p|39999": {
+      "name": "Zapatillas Topper Temple CS Unisex",
+      "price": 39999,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-temple-cs-unisex-2265690-000/p",
+      "sent_at": "2026-05-24T04:34:24.713622+00:00"
     }
   }
 }
