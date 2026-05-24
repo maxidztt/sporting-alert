@@ -1,5 +1,11 @@
 {
   "sent": {
+    "https://www.sporting.com.ar/botines-joma-aguila-24-fg-de-hombre-aguw2404fg-000/p|44999": {
+      "name": "Botines Joma Aguila 24 FG De Hombre",
+      "price": 44999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-24-fg-de-hombre-aguw2404fg-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
     "https://www.sporting.com.ar/botines-joma-aguila-2417-fg-de-hombre-aguw2417fg-000/p|40999": {
       "name": "Botines Joma Aguila 2417 FG De Hombre",
       "price": 40999,
@@ -23,6 +29,60 @@
       "price": 36399,
       "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2409fg-000/p",
       "sent_at": "2026-05-24T02:44:24.944383+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-aguw2401fg-000/p|49999": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 49999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-aguw2401fg-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-propulsion-cup-fg-de-hombre-pcus2401fg-000/p|47999": {
+      "name": "Botines Joma Propulsion Cup FG De Hombre",
+      "price": 47999,
+      "link": "https://www.sporting.com.ar/botines-joma-propulsion-cup-fg-de-hombre-pcus2401fg-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-breaknet-mid-55823/p|48000": {
+      "name": "Zapatillas Breaknet Mid adidas Hombre",
+      "price": 48000,
+      "link": "https://www.sporting.com.ar/zapatillas-breaknet-mid-55823/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-puma-ever-fs-de-hombre-38639305-000/p|53999": {
+      "name": "Zapatillas Puma Ever Fs De Hombre",
+      "price": 53999,
+      "link": "https://www.sporting.com.ar/zapatillas-puma-ever-fs-de-hombre-38639305-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper--strong-pace-iii--de-hombre-2262050-000/p|50999": {
+      "name": "Zapatillas Topper  Strong Pace III  De Hombre",
+      "price": 50999,
+      "link": "https://www.sporting.com.ar/zapatillas-topper--strong-pace-iii--de-hombre-2262050-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper-boris-unisex-2256790-000/p|49999": {
+      "name": "Zapatillas Topper Boris Unisex",
+      "price": 49999,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-boris-unisex-2256790-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper-fast-2-0-de-hombre-2901010-000/p|51999": {
+      "name": "Zapatillas Topper Fast 2.0 De Hombre",
+      "price": 51999,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-fast-2-0-de-hombre-2901010-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper-mamba-ii-unisex-2296810-000/p|43999": {
+      "name": "Zapatillas Topper Mamba II Unisex",
+      "price": 43999,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-mamba-ii-unisex-2296810-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper-mamba-ii-unisex-2296830-000/p|43999": {
+      "name": "Zapatillas Topper Mamba II Unisex",
+      "price": 43999,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-mamba-ii-unisex-2296830-000/p",
+      "sent_at": "2026-05-24T06:45:25.613593+00:00"
     },
     "https://www.sporting.com.ar/zapatillas-topper-temple-cs-unisex-2265690-000/p|39999": {
       "name": "Zapatillas Topper Temple CS Unisex",
