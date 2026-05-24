@@ -13,7 +13,7 @@ BASE_API_URL = os.getenv(
     "https://www.sporting.com.ar/api/catalog_system/pub/products/search/sporting/calzado",
 )
 
-PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "39000"))
+PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "41000"))
 PAGINAS_A_REVISAR = int(os.getenv("PAGINAS_A_REVISAR", "5"))
 PRODUCTOS_POR_PAGINA = int(os.getenv("PRODUCTOS_POR_PAGINA", "24"))
 HISTORIAL_ALERTAS_PATH = Path(os.getenv("HISTORIAL_ALERTAS_PATH", "sent_offers.json"))
