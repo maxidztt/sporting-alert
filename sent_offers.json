@@ -48,11 +48,29 @@
       "link": "https://www.sporting.com.ar/botines-joma-propulsion-cup-fg-de-hombre-pcus2401fg-000/p",
       "sent_at": "2026-05-24T06:45:25.613593+00:00"
     },
+    "https://www.sporting.com.ar/botines-umbro-society-de-hombre-01fb00327124-000/p|59999": {
+      "name": "Botines Umbro Society De Hombre",
+      "price": 59999,
+      "link": "https://www.sporting.com.ar/botines-umbro-society-de-hombre-01fb00327124-000/p",
+      "sent_at": "2026-05-24T11:41:20.160259+00:00"
+    },
     "https://www.sporting.com.ar/botines-umbro-ultimate-fg-de-hombre-01fb00224183-000/p|55999": {
       "name": "Botines Umbro Ultimate FG De Hombre",
       "price": 55999,
       "link": "https://www.sporting.com.ar/botines-umbro-ultimate-fg-de-hombre-01fb00224183-000/p",
       "sent_at": "2026-05-24T09:25:31.499914+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-adidas-duramo-rc-2-de-hombre-6jq8077-000/p|59999": {
+      "name": "Zapatillas adidas Duramo RC 2 De Hombre",
+      "price": 59999,
+      "link": "https://www.sporting.com.ar/zapatillas-adidas-duramo-rc-2-de-hombre-6jq8077-000/p",
+      "sent_at": "2026-05-24T11:41:20.160259+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-adidas-tekwen-de-mujer-6js3870-000/p|59999": {
+      "name": "Zapatillas adidas Tekwen De Mujer",
+      "price": 59999,
+      "link": "https://www.sporting.com.ar/zapatillas-adidas-tekwen-de-mujer-6js3870-000/p",
+      "sent_at": "2026-05-24T11:41:20.160259+00:00"
     },
     "https://www.sporting.com.ar/zapatillas-breaknet-mid-55823/p|48000": {
       "name": "Zapatillas Breaknet Mid adidas Hombre",
@@ -89,6 +107,12 @@
       "price": 53999,
       "link": "https://www.sporting.com.ar/zapatillas-puma-ever-fs-de-hombre-38639305-000/p",
       "sent_at": "2026-05-24T06:45:25.613593+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-puma-flyer-lite-3-de-hombre-31203021-000/p|59999": {
+      "name": "Zapatillas Puma Flyer Lite 3 De Hombre",
+      "price": 59999,
+      "link": "https://www.sporting.com.ar/zapatillas-puma-flyer-lite-3-de-hombre-31203021-000/p",
+      "sent_at": "2026-05-24T11:41:20.160259+00:00"
     },
     "https://www.sporting.com.ar/zapatillas-topper--strong-pace-iii--de-hombre-2262050-000/p|50999": {
       "name": "Zapatillas Topper  Strong Pace III  De Hombre",
