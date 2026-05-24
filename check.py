@@ -1,4 +1,7 @@
+import json
 import os
+from datetime import datetime, timezone
+from pathlib import Path
 from typing import Any
 
 
@@ -13,6 +16,7 @@ BASE_API_URL = os.getenv(
 PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "39000"))
 PAGINAS_A_REVISAR = int(os.getenv("PAGINAS_A_REVISAR", "5"))
 PRODUCTOS_POR_PAGINA = int(os.getenv("PRODUCTOS_POR_PAGINA", "24"))
+HISTORIAL_ALERTAS_PATH = Path(os.getenv("HISTORIAL_ALERTAS_PATH", "sent_offers.json"))
 PALABRAS_EXCLUIDAS = (
     "ojota",
     "ojotas",
@@ -29,6 +33,31 @@ PALABRAS_EXCLUIDAS = (
     "bebé",
     "bebés",
 )
+
+
+def cargar_historial(path: Path = HISTORIAL_ALERTAS_PATH) -> dict[str, dict[str, Any]]:
+    if not path.exists():
+        return {}
+
+    data = json.loads(path.read_text(encoding="utf-8"))
+    sent = data.get("sent", {})
+
+    if isinstance(sent, list):
+        return {key: {"key": key} for key in sent}
+
+    if not isinstance(sent, dict):
+        return {}
+
+    return sent
+
+
+def guardar_historial(historial: dict[str, dict[str, Any]], path: Path = HISTORIAL_ALERTAS_PATH) -> None:
+    data = {"sent": dict(sorted(historial.items()))}
+    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def clave_oferta(precio: int, link: str) -> str:
+    return f"{link}|{precio}"
 
 
 def enviar_telegram(mensaje: str) -> None:
@@ -116,7 +145,8 @@ def producto_permitido(nombre: str) -> bool:
 
 
 def main() -> None:
-    encontrados = []
+    historial = cargar_historial()
+    nuevas_ofertas = []
     vistos = set()
 
     for numero_pagina in range(1, PAGINAS_A_REVISAR + 1):
@@ -142,20 +172,46 @@ def main() -> None:
             print(nombre, precio)
 
             if precio <= PRECIO_MAXIMO:
-                key = f"{nombre}|{precio}|{link}"
+                key = clave_oferta(precio, link)
                 if key in vistos:
                     continue
 
                 vistos.add(key)
-                encontrados.append(formatear_oferta(nombre, precio, link))
 
-    if not encontrados:
-        print(f"No hay productos por debajo de ${PRECIO_MAXIMO}.")
+                if key in historial:
+                    print(f"Oferta ya enviada: {nombre} ${precio}")
+                    continue
+
+                nuevas_ofertas.append(
+                    {
+                        "key": key,
+                        "nombre": nombre,
+                        "precio": precio,
+                        "link": link,
+                    }
+                )
+
+    if not nuevas_ofertas:
+        print(f"No hay ofertas nuevas por debajo de ${PRECIO_MAXIMO}.")
         return
 
-    mensaje_final = "\n\n--------------\n\n".join(encontrados[:10])
+    ofertas_a_enviar = nuevas_ofertas[:10]
+    mensaje_final = "\n\n--------------\n\n".join(
+        formatear_oferta(oferta["nombre"], oferta["precio"], oferta["link"]) for oferta in ofertas_a_enviar
+    )
     enviar_telegram(mensaje_final)
-    print(f"Mensaje enviado con {min(len(encontrados), 10)} ofertas.")
+
+    sent_at = datetime.now(timezone.utc).isoformat()
+    for oferta in ofertas_a_enviar:
+        historial[oferta["key"]] = {
+            "name": oferta["nombre"],
+            "price": oferta["precio"],
+            "link": oferta["link"],
+            "sent_at": sent_at,
+        }
+
+    guardar_historial(historial)
+    print(f"Mensaje enviado con {len(ofertas_a_enviar)} ofertas nuevas.")
 
 
 if __name__ == "__main__":
