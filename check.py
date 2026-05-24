@@ -5,8 +5,8 @@ from pathlib import Path
 from typing import Any
 
 
-TOKEN = os.getenv("TELEGRAM_TOKEN", "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA")
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "7727821551")
+TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 BASE_API_URL = os.getenv(
     "SPORTING_API_URL",
