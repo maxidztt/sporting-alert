@@ -1,3 +1,22 @@
 {
-  "sent": {}
+  "sent": {
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2301fg-000/p|38999": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 38999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2301fg-000/p",
+      "sent_at": "2026-05-24T02:44:24.944383+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2401fg-000/p|38999": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 38999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2401fg-000/p",
+      "sent_at": "2026-05-24T02:44:24.944383+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2409fg-000/p|36399": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 36399,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2409fg-000/p",
+      "sent_at": "2026-05-24T02:44:24.944383+00:00"
+    }
+  }
 }
