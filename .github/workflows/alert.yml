@@ -3,8 +3,11 @@ name: Sporting Alert
 on:
   workflow_dispatch:
   schedule:
-    # Evita los minutos mas congestionados de GitHub Actions.
-    - cron: '2,7,12,17,22,27,32,37,42,47,52,57 * * * *'
+    # Una vez por hora, evitando el minuto 0 que suele estar mas congestionado.
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
 
 jobs:
   run-script:
@@ -27,3 +30,11 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python check.py
+
+      - name: Guardar historial de alertas
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sent_offers.json
+          git diff --cached --quiet || git commit -m "Update sent alert history"
+          git push
