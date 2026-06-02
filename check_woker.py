@@ -16,7 +16,7 @@ BASE_API_URL = os.getenv(
 PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "46000"))
 PAGINAS_A_REVISAR = int(os.getenv("PAGINAS_A_REVISAR", "5"))
 PRODUCTOS_POR_PAGINA = int(os.getenv("PRODUCTOS_POR_PAGINA", "24"))
-HISTORIAL_ALERTAS_PATH = Path(os.getenv("HISTORIAL_ALERTAS_PATH", "sent_offers.json"))
+HISTORIAL_ALERTAS_PATH = Path(os.getenv("HISTORIAL_ALERTAS_PATH", "sent_offers_woker.json"))
 PALABRAS_EXCLUIDAS = (
     "ojota",
     "ojotas",
