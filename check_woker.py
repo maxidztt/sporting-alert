@@ -64,7 +64,7 @@ def enviar_telegram(mensaje: str) -> None:
     import requests
 
     if not TOKEN or not CHAT_ID:
-        raise RuntimeError("Faltan TELEGRAM_TOKEN o TELEGRAM_CHAT_ID en las variables de entorno.")
+        raise RuntimeError("woker.Faltan TELEGRAM_TOKEN o TELEGRAM_CHAT_ID en las variables de entorno.")
 
     response = requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
@@ -73,13 +73,13 @@ def enviar_telegram(mensaje: str) -> None:
     )
 
     if not response.ok:
-        print("Telegram respondio con error:", response.status_code, response.text)
+        print("woker. Telegram respondio con error:", response.status_code, response.text)
 
     response.raise_for_status()
 
     data = response.json()
     if not data.get("ok"):
-        raise RuntimeError(f"Telegram no acepto el mensaje: {data}")
+        raise RuntimeError(f"woker.Telegram no acepto el mensaje: {data}")
 
 
 def obtener_productos(numero_pagina: int) -> list[dict[str, Any]]:
@@ -101,7 +101,7 @@ def obtener_productos(numero_pagina: int) -> list[dict[str, Any]]:
     )
 
     if not response.ok:
-        print("Sporting respondio con error:", response.status_code, response.text[:500])
+        print("Woker respondio con error:", response.status_code, response.text[:500])
 
     response.raise_for_status()
     return response.json()
@@ -128,7 +128,7 @@ def extraer_precio_producto(producto: dict[str, Any]) -> int | None:
 def formatear_oferta(nombre: str, precio: int, link: str) -> str:
     return "\n".join(
         [
-            "OFERTA SPORTING",
+            "OFERTA WOKER",
             "",
             f"Producto: {nombre}",
             f"Precio: ${precio}",
