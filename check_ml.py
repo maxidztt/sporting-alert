@@ -129,6 +129,10 @@ def revisar_producto_directo(page, producto_directo):
 
     nombre = producto_directo["nombre"]
     precio = producto_directo["precio"]
+    # Mantener el link original del producto
+if "/gz/account-verification" not in page.url:
+    link = normalizar_link(page.url)
+else:
     link = normalizar_link(url)
     envio_gratis = False
 
