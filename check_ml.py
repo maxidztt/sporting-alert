@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-PRECIO_MAXIMO = 35000
+PRECIO_MAXIMO = 60000
 
 HISTORIAL_PATH = Path("sent_offers_ml.json")
 
