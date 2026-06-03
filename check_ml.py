@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright
 TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
-PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO_ML", "60000"))
+PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO_ML", "82000"))
 HISTORIAL_PATH = Path("sent_offers_ml.json")
 
 BUSQUEDAS = [
