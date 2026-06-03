@@ -81,17 +81,35 @@ nuevas_ofertas = []
 
 with sync_playwright() as p:
 
-    browser = p.chromium.launch(headless=True)
+    browser = p.chromium.launch(
+        headless=True,
+        args=[
+            "--disable-blink-features=AutomationControlled"
+        ]
+    )
 
-    page = browser.new_page()
+    page = browser.new_page(
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+    )
 
     for url in BUSQUEDAS:
 
         print("Revisando:", url)
 
-        page.goto(url, wait_until="domcontentloaded", timeout=120000)
+        page.goto(
+            url,
+            wait_until="domcontentloaded",
+            timeout=120000
+        )
 
-        page.wait_for_timeout(5000)
+        page.wait_for_timeout(8000)
+
+        print("TITULO:", page.title())
+
+        html = page.content()
+
+        print("HTML:")
+        print(html[:1000])
 
         cards = page.locator(".poly-card").all()
 
@@ -101,7 +119,9 @@ with sync_playwright() as p:
 
             try:
 
-                titulo = card.locator(".poly-component__title").first
+                titulo = card.locator(
+                    ".poly-component__title"
+                ).first
 
                 nombre = titulo.inner_text().strip()
 
@@ -123,11 +143,16 @@ with sync_playwright() as p:
 
                 precio = limpiar_precio(precio_texto)
 
+                print(nombre)
+                print("PRECIO:", precio)
+
                 if precio is None:
                     continue
 
                 if precio > PRECIO_MAXIMO:
                     continue
+
+                print("ACEPTADA:", nombre, precio)
 
                 envio_gratis = (
                     "Envío gratis" in card.inner_text()
