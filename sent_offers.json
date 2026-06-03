@@ -1,4 +1,64 @@
 {
   "sent": {
+    "https://www.sporting.com.ar/botines-joma-aguila-2417-fg-de-hombre-aguw2417fg-000/p|40999": {
+      "name": "Botines Joma Aguila 2417 FG De Hombre",
+      "price": 40999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-2417-fg-de-hombre-aguw2417fg-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2301fg-000/p|38999": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 38999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2301fg-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2401fg-000/p|38999": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 38999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2401fg-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2409fg-000/p|36399": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 36399,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2409fg-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/botines-umbro-heatmap-tf-de-hombre-01fb00329723-000/p|37399": {
+      "name": "Botines Umbro Heatmap TF De Hombre",
+      "price": 37399,
+      "link": "https://www.sporting.com.ar/botines-umbro-heatmap-tf-de-hombre-01fb00329723-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/botines-umbro-mutant-tf-de-hombre-01fb00251616-000/p|43999": {
+      "name": "Botines Umbro Mutant TF De Hombre",
+      "price": 43999,
+      "link": "https://www.sporting.com.ar/botines-umbro-mutant-tf-de-hombre-01fb00251616-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/mocasines-crocs-santa-cruz-de-hombre-c202972-2u6/p|41499": {
+      "name": "Mocasines Crocs Santa Cruz De Hombre",
+      "price": 41499,
+      "link": "https://www.sporting.com.ar/mocasines-crocs-santa-cruz-de-hombre-c202972-2u6/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-fila-o-f--bold-de-mujer-02l003034955-000/p|39999": {
+      "name": "Zapatillas Fila O.F. Bold De Mujer",
+      "price": 39999,
+      "link": "https://www.sporting.com.ar/zapatillas-fila-o-f--bold-de-mujer-02l003034955-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper-mamba-ii-unisex-2296810-000/p|43999": {
+      "name": "Zapatillas Topper Mamba II Unisex",
+      "price": 43999,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-mamba-ii-unisex-2296810-000/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    },
+    "https://www.sporting.com.ar/zapatos-mocassino-alsa-popa-1-de-hombre-14210-neg/p|29999": {
+      "name": "Zapatos Mocassino Alsa Popa 1 De Hombre",
+      "price": 29999,
+      "link": "https://www.sporting.com.ar/zapatos-mocassino-alsa-popa-1-de-hombre-14210-neg/p",
+      "sent_at": "2026-06-03T20:42:30.905575+00:00"
+    }
   }
 }
