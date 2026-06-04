@@ -30,6 +30,12 @@
       "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-agus2409fg-000/p",
       "sent_at": "2026-06-03T20:49:26.840888+00:00"
     },
+    "https://www.sporting.com.ar/botines-joma-aguila-tf-de-hombre-aguw2404tf-000/p|34999": {
+      "name": "Botines Joma Aguila TF De Hombre",
+      "price": 34999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-tf-de-hombre-aguw2404tf-000/p",
+      "sent_at": "2026-06-04T14:11:44.471005+00:00"
+    },
     "https://www.sporting.com.ar/botines-umbro-heatmap-tf-de-hombre-01fb00329723-000/p|37399": {
       "name": "Botines Umbro Heatmap TF De Hombre",
       "price": 37399,
@@ -71,6 +77,12 @@
       "price": 29999,
       "link": "https://www.sporting.com.ar/zapatos-mocassino-alsa-popa-1-de-hombre-14210-neg/p",
       "sent_at": "2026-06-03T20:49:26.840888+00:00"
+    },
+    "https://www.sporting.com.ar/zuecos-crocs-crocband-unisex-c11016n-410/p|41999": {
+      "name": "Zuecos Crocs Crocband Unisex",
+      "price": 41999,
+      "link": "https://www.sporting.com.ar/zuecos-crocs-crocband-unisex-c11016n-410/p",
+      "sent_at": "2026-06-04T14:11:44.471005+00:00"
     }
   }
 }
