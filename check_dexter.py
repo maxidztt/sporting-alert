@@ -219,7 +219,7 @@ if nuevas_ofertas:
     for oferta in nuevas_ofertas[:10]:
 
         mensajes.append(
-            f"🔥 DEXTER\n\n"
+            f"🔥 OFERTA 🟥DEXTER🟥\n\n"
             f"👟 {oferta['nombre']}\n"
             f"💲 ${oferta['precio']}\n\n"
             f"{oferta['link']}"
