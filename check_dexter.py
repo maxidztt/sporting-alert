@@ -58,7 +58,7 @@ def guardar_historial(historial):
 
 
 def enviar_telegram(mensaje):
-    requests.post(
+    response = requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         json={
             "chat_id": CHAT_ID,
@@ -66,6 +66,11 @@ def enviar_telegram(mensaje):
         },
         timeout=20,
     )
+
+    print("Telegram:", response.status_code)
+    print(response.text)
+
+    response.raise_for_status()
 
 
 def producto_permitido(nombre):
@@ -216,7 +221,7 @@ if nuevas_ofertas:
 
     mensajes = []
 
-    for oferta in nuevas_ofertas[:10]:
+    for oferta in nuevas_ofertas[:3]:
 
         mensajes.append(
             f"🔥 DEXTER\n\n"
