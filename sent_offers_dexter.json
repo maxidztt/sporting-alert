@@ -1,3 +1,64 @@
 {
-  "sent": {}
+  "sent": {
+    "https://www.dexter.com.ar/zapatillas-pony-plataform-classic-slip/POPO338066.html|23528": {
+      "name": "Zapatillas Pony Plataform Classic Slip",
+      "price": 23528,
+      "link": "https://www.dexter.com.ar/zapatillas-pony-plataform-classic-slip/POPO338066.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-converse-chuck-taylor-all-star/CO173014C.html|32549": {
+      "name": "Zapatillas Converse Chuck Taylor All Star",
+      "price": 32549,
+      "link": "https://www.dexter.com.ar/zapatillas-converse-chuck-taylor-all-star/CO173014C.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-topper-terre-mid-con-velcro-infantil/TO52389.html|32999": {
+      "name": "Zapatillas Topper Terre Mid con velcro Infantil",
+      "price": 32999,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-terre-mid-con-velcro-infantil/TO52389.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-topper-terre-infantil/TO25987.html|33149": {
+      "name": "Zapatillas Topper Terre Infantil",
+      "price": 33149,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-terre-infantil/TO25987.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-topper-terre-infantil/TO26452.html|33149": {
+      "name": "Zapatillas Topper Terre Infantil",
+      "price": 33149,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-terre-infantil/TO26452.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-topper-terre-infantil/TO25988.html|33149": {
+      "name": "Zapatillas Topper Terre Infantil",
+      "price": 33149,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-terre-infantil/TO25988.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-topper-lambi-ii-infantil/TO25797.html|33599": {
+      "name": "Zapatillas Topper Lambi II Infantil",
+      "price": 33599,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-lambi-ii-infantil/TO25797.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-topper-profesional/TO88343.html|33999": {
+      "name": "Zapatillas Topper Profesional",
+      "price": 33999,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-profesional/TO88343.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-tenis-lotto-court-logo-amf-xix-hombre/LONC2174941H8.html|34999": {
+      "name": "Zapatillas Tenis Lotto Court Logo Amf Xix Hombre",
+      "price": 34999,
+      "link": "https://www.dexter.com.ar/zapatillas-tenis-lotto-court-logo-amf-xix-hombre/LONC2174941H8.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    },
+    "https://www.dexter.com.ar/zapatillas-atomik-tau-infantil/AM1113410815CN.html|35909": {
+      "name": "Zapatillas Atomik Tau Infantil",
+      "price": 35909,
+      "link": "https://www.dexter.com.ar/zapatillas-atomik-tau-infantil/AM1113410815CN.html",
+      "sent_at": "2026-06-05T16:04:46.594797+00:00"
+    }
+  }
 }
