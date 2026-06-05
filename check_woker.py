@@ -101,13 +101,18 @@ def obtener_productos(numero_pagina: int) -> list[dict[str, Any]]:
     )
 
     if not response.ok:
-        print("Woker respondio con error:", response.status_code, response.text[:500])
-if response.status_code == 403:
-    print("Woker devolvió 403. Se omite esta ejecución.")
-    return []
+        print(
+            "Woker respondio con error:",
+            response.status_code,
+            response.text[:500]
+        )
 
-response.raise_for_status()
-return response.json()
+    if response.status_code == 403:
+        print("Woker devolvio 403. Se omite esta ejecucion.")
+        return []
+
+    response.raise_for_status()
+    return response.json()
 
 
 def extraer_precio_producto(producto: dict[str, Any]) -> int | None:
