@@ -28,6 +28,7 @@ PALABRAS_EXCLUIDAS = (
     "bebes",
     "bebé",
     "bebés",
+    "infantil",
 )
 
 PAGINAS = 5
