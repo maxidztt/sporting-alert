@@ -128,7 +128,7 @@ def extraer_precio_producto(producto: dict[str, Any]) -> int | None:
 def formatear_oferta(nombre: str, precio: int, link: str) -> str:
     return "\n".join(
         [
-            "OFERTA SPORTING",
+            "🔥OFERTA 🟩SPORTING🟩",
             "",
             f"Producto: {nombre}",
             f"Precio: ${precio}",
