@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-PRECIO_MAXIMO = 46000
+PRECIO_MAXIMO = 45000
 
 HISTORIAL_PATH = Path("sent_offers_dexter.json")
 
@@ -58,7 +58,7 @@ def guardar_historial(historial):
 
 
 def enviar_telegram(mensaje):
-    response = requests.post(
+    requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         json={
             "chat_id": CHAT_ID,
@@ -66,11 +66,6 @@ def enviar_telegram(mensaje):
         },
         timeout=20,
     )
-
-    print("Telegram:", response.status_code)
-    print(response.text)
-
-    response.raise_for_status()
 
 
 def producto_permitido(nombre):
@@ -221,7 +216,7 @@ if nuevas_ofertas:
 
     mensajes = []
 
-    for oferta in nuevas_ofertas[:3]:
+    for oferta in nuevas_ofertas[:10]:
 
         mensajes.append(
             f"🔥 DEXTER\n\n"
