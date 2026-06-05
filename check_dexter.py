@@ -9,7 +9,7 @@ from bs4 import BeautifulSoup
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-PRECIO_MAXIMO = 45000
+PRECIO_MAXIMO = 46000
 
 HISTORIAL_PATH = Path("sent_offers_dexter.json")
 
