@@ -4,8 +4,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-TOKEN = os.getenv("TELEGRAM_TOKEN") or "<TOKEN_LOCAL>"
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "<CHAT_ID_LOCAL>"
+TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 PRECIO_MAXIMO = 45000
 ENVIAR_ALERTAS = True
