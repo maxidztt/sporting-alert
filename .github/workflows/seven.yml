@@ -1,4 +1,4 @@
-name: Seven Scraper
+name: Seven Alert
 
 on:
   workflow_dispatch:
