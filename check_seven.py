@@ -30,7 +30,7 @@ PALABRAS_EXCLUIDAS = (
     "bebe", "bebes",
     "bebé", "bebés",
     "infantil",
-    "juvenil",
+    "juvenil", "Juvenil",
 )
 
 def cargar_historial(path: Path = HISTORIAL_PATH) -> dict[str, dict[str, Any]]:
