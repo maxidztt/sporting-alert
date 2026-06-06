@@ -242,11 +242,11 @@ if nuevas_ofertas:
         historial
     )
 
-    #enviar_telegram(
-       # "\n\n-----------------\n\n".join(
-        #    mensajes
-        #)
-    #)
+    enviar_telegram(
+        "\n\n-----------------\n\n".join(
+            mensajes
+        )
+    )
 
     print(
         f"Enviadas {len(mensajes)} ofertas"
