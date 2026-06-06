@@ -11,6 +11,8 @@ CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 PRECIO_MAXIMO = 45000
 
+ENVIAR_ALERTAS = True
+
 HISTORIAL_PATH = Path("sent_offers_dexter.json")
 
 PALABRAS_EXCLUIDAS = (
@@ -58,6 +60,10 @@ def guardar_historial(historial):
 
 
 def enviar_telegram(mensaje):
+    if not ENVIAR_ALERTAS:
+        print("Alertas desactivadas.")
+        return
+
     requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         json={
