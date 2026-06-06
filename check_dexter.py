@@ -178,7 +178,7 @@ for pagina in range(PAGINAS):
             else:
                 link = href
 
-            key = f"{link}|{precio}"
+      key = f"{nombre}|{precio}"      
 
             if key in vistos:
                 continue
