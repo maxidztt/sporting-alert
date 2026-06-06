@@ -145,7 +145,7 @@ for pagina in range(PAGINAS):
                 ".sales .value"
             )
 
-                       if not nombre_tag or not precio_tag:
+            if not nombre_tag or not precio_tag:
                 continue
 
             nombre = (
