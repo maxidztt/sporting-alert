@@ -145,44 +145,44 @@ for pagina in range(PAGINAS):
                 ".sales .value"
             )
 
-            if not nombre_tag or not precio_tag:
+                       if not nombre_tag or not precio_tag:
                 continue
 
-       nombre = (
-    nombre_tag.get_text(strip=True)
-)
+            nombre = (
+                nombre_tag.get_text(strip=True)
+            )
 
-if not producto_permitido(nombre):
-    continue
+            if not producto_permitido(nombre):
+                continue
 
-precio = int(
-    float(
-        precio_tag.get(
-            "content"
-        )
-    )
-)
+            precio = int(
+                float(
+                    precio_tag.get(
+                        "content"
+                    )
+                )
+            )
 
-if precio > PRECIO_MAXIMO:
-    continue
+            if precio > PRECIO_MAXIMO:
+                continue
 
-href = nombre_tag.get(
-    "href"
-)
+            href = nombre_tag.get(
+                "href"
+            )
 
-if href.startswith("/"):
-    link = (
-        "https://www.dexter.com.ar"
-        + href
-    )
-else:
-    link = href
+            if href.startswith("/"):
+                link = (
+                    "https://www.dexter.com.ar"
+                    + href
+                )
+            else:
+                link = href
 
-nombre_normalizado = " ".join(
-    nombre.split()
-).lower()
+            nombre_normalizado = " ".join(
+                nombre.split()
+            ).lower()
 
-key = f"{nombre_normalizado}|{precio}"
+            key = f"{nombre_normalizado}|{precio}"
 
             if key in vistos:
                 continue
