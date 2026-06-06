@@ -8,7 +8,7 @@ TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSr
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 PRECIO_MAXIMO = 45000
-ENVIAR_ALERTAS = True
+ENVIAR_ALERTAS = False
 
 BASE_API_URL = (
     "https://www.sevensport.com.ar/"
