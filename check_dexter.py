@@ -11,7 +11,7 @@ CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 PRECIO_MAXIMO = 45000
 
-ENVIAR_ALERTAS = False
+ENVIAR_ALERTAS = True
 
 HISTORIAL_PATH = Path("sent_offers_dexter.json")
 
