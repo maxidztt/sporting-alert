@@ -125,7 +125,7 @@ def producto_permitido(nombre: str) -> bool:
 
 def formatear_oferta(nombre: str, precio: int, link: str) -> str:
     return "\n".join([
-        "🔥 OFERTA SEVEN SPORT",
+        "🔥 OFERTA 🟦SEVEN SPORT🟦",
         "",
         f"Producto: {nombre}",
         f"Precio: ${precio:,}".replace(",", "."),
