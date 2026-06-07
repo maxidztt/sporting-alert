@@ -24,6 +24,12 @@ button{
     padding:10px 20px;
     font-size:16px;
     cursor:pointer;
+    width:100%;
+}
+
+#status{
+    margin-top:20px;
+    font-weight:bold;
 }
 </style>
 </head>
@@ -41,31 +47,95 @@ button{
     <button id="sevenBtn">Cargando...</button>
 </div>
 
+<div id="status"></div>
+
 <script>
+
+const WORKER_URL =
+"https://alert-control.tolediazmaxi.workers.dev";
+
 const estado = {
     dexter: true,
     seven: true
 };
 
 function actualizarBotones() {
+
     document.getElementById("dexterBtn").textContent =
-        estado.dexter ? "🟢 ACTIVADO" : "🔴 DESACTIVADO";
+        estado.dexter
+            ? "🟢 ACTIVADO"
+            : "🔴 DESACTIVADO";
 
     document.getElementById("sevenBtn").textContent =
-        estado.seven ? "🟢 ACTIVADO" : "🔴 DESACTIVADO";
+        estado.seven
+            ? "🟢 ACTIVADO"
+            : "🔴 DESACTIVADO";
 }
 
-document.getElementById("dexterBtn").onclick = () => {
+async function guardar() {
+
+    document.getElementById("status").textContent =
+        "⏳ Guardando...";
+
+    try {
+
+        const response = await fetch(
+            WORKER_URL,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+                body: JSON.stringify({
+                    dexter: estado.dexter,
+                    seven: estado.seven
+                })
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                "Error al actualizar"
+            );
+        }
+
+        document.getElementById("status")
+            .textContent =
+            "✅ Configuración actualizada";
+
+    } catch (e) {
+
+        document.getElementById("status")
+            .textContent =
+            "❌ Error al guardar";
+
+        console.error(e);
+    }
+}
+
+document.getElementById("dexterBtn")
+    .onclick = async () => {
+
     estado.dexter = !estado.dexter;
+
     actualizarBotones();
+
+    await guardar();
 };
 
-document.getElementById("sevenBtn").onclick = () => {
+document.getElementById("sevenBtn")
+    .onclick = async () => {
+
     estado.seven = !estado.seven;
+
     actualizarBotones();
+
+    await guardar();
 };
 
 actualizarBotones();
+
 </script>
 
 </body>
