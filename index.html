@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alert Control Center</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.card{
+    border:1px solid #ddd;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+button{
+    padding:10px 20px;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<h1>Alert Control Center</h1>
+
+<div class="card">
+    <h2>Dexter Alert</h2>
+    <button id="dexterBtn">Cargando...</button>
+</div>
+
+<div class="card">
+    <h2>Seven Alert</h2>
+    <button id="sevenBtn">Cargando...</button>
+</div>
+
+<script>
+const estado = {
+    dexter: true,
+    seven: true
+};
+
+function actualizarBotones() {
+    document.getElementById("dexterBtn").textContent =
+        estado.dexter ? "🟢 ACTIVADO" : "🔴 DESACTIVADO";
+
+    document.getElementById("sevenBtn").textContent =
+        estado.seven ? "🟢 ACTIVADO" : "🔴 DESACTIVADO";
+}
+
+document.getElementById("dexterBtn").onclick = () => {
+    estado.dexter = !estado.dexter;
+    actualizarBotones();
+};
+
+document.getElementById("sevenBtn").onclick = () => {
+    estado.seven = !estado.seven;
+    actualizarBotones();
+};
+
+actualizarBotones();
+</script>
+
+</body>
+</html>
