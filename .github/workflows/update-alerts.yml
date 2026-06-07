@@ -8,12 +8,10 @@ description: "Dexter enabled"
 required: true
 default: "true"
 
-```
   seven:
     description: "Seven enabled"
     required: true
     default: "true"
-```
 
 permissions:
 contents: write
@@ -22,7 +20,6 @@ jobs:
 update-config:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout
     uses: actions/checkout@v4
@@ -48,4 +45,3 @@ steps:
       git pull --rebase origin Sistemas-UCH
 
       git push origin Sistemas-UCH
-```
