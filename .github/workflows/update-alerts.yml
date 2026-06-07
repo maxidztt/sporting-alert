@@ -1,47 +1,46 @@
 name: Update Alerts Config
 
 on:
-workflow_dispatch:
-inputs:
-dexter:
-description: "Dexter enabled"
-required: true
-default: "true"
-
-  seven:
-    description: "Seven enabled"
-    required: true
-    default: "true"
+  workflow_dispatch:
+    inputs:
+      dexter:
+        description: "Dexter enabled"
+        required: true
+        default: "true"
+      seven:
+        description: "Seven enabled"
+        required: true
+        default: "true"
 
 permissions:
-contents: write
+  contents: write
 
 jobs:
-update-config:
-runs-on: ubuntu-latest
+  update-config:
+    runs-on: ubuntu-latest
 
-steps:
-  - name: Checkout
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  - name: Update config_alertas.json
-    run: |
-      cat > config_alertas.json << EOF
-      {
-        "dexter": ${{ github.event.inputs.dexter }},
-        "seven": ${{ github.event.inputs.seven }}
-      }
-      EOF
+      - name: Update config_alertas.json
+        run: |
+          cat > config_alertas.json << EOF
+          {
+            "dexter": ${{ github.event.inputs.dexter }},
+            "seven": ${{ github.event.inputs.seven }}
+          }
+          EOF
 
-  - name: Commit changes
-    run: |
-      git config user.name "github-actions[bot]"
-      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-      git add config_alertas.json
+          git add config_alertas.json
 
-      git diff --cached --quiet || git commit -m "Update alerts config"
+          git diff --cached --quiet || git commit -m "Update alerts config"
 
-      git pull --rebase origin Sistemas-UCH
+          git pull --rebase origin Sistemas-UCH
 
-      git push origin Sistemas-UCH
+          git push origin Sistemas-UCH
