@@ -234,6 +234,7 @@
     border-radius:12px;
     padding:0 10px;
     height:38px;
+    min-width: 0;
 }
 
 .precio-prefix{
@@ -241,6 +242,8 @@
     font-size:12px;
     font-weight:600;
     margin-right:6px;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .precio-box input{
@@ -311,6 +314,7 @@
     <button class="save-price-btn" onclick="guardar()">
         ✅
     </button>
+        </div>
         </div>
 
         <div class="card">
