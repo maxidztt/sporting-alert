@@ -362,20 +362,23 @@
                 <div id="dexterBadge" class="badge">Cargando</div>
             </div>
             <button id="dexterBtn">Cargando...</button>
-            <input
-                type="number"
-                id="precio_dexter"
-                placeholder="Precio máximo"
-                style="
-                    width:100%;
-                    margin-top:10px;
-                    padding:12px;
-                    border-radius:12px;
-                    border:none;
-                    background:rgba(255,255,255,0.08);
-                    color:white;
-                "
-            >
+<div class="precio-input-group">
+
+    <div class="precio-box">
+        <span class="precio-prefix">Max $</span>
+
+        <input
+            type="number"
+            id="precio_dexter"
+            placeholder="45000"
+        >
+    </div>
+
+    <button class="save-price-btn" onclick="guardar()">
+        ✅
+    </button>
+
+</div>
         </div>
 
         <div class="card">
@@ -390,20 +393,23 @@
                 <div id="sevenBadge" class="badge">Cargando</div>
             </div>
             <button id="sevenBtn">Cargando...</button>
-              <input
-                type="number"
-                id="precio_seven"
-                placeholder="Precio máximo"
-                style="
-                    width:100%;
-                    margin-top:10px;
-                    padding:12px;
-                    border-radius:12px;
-                    border:none;
-                    background:rgba(255,255,255,0.08);
-                    color:white;
-                "
-            >
+<div class="precio-input-group">
+
+    <div class="precio-box">
+        <span class="precio-prefix">Max $</span>
+
+        <input
+            type="number"
+            id="precio_seven"
+            placeholder="40999"
+        >
+    </div>
+
+    <button class="save-price-btn" onclick="guardar()">
+        ✅
+    </button>
+
+</div>
         </div>
     </div>
 
@@ -419,20 +425,23 @@
         <div id="dashBadge" class="badge">Cargando</div>
     </div>
     <button id="dashBtn">Cargando...</button>
+<div class="precio-input-group">
+
+    <div class="precio-box">
+        <span class="precio-prefix">Max $</span>
+
         <input
             type="number"
             id="precio_dash"
-            placeholder="Precio máximo"
-            style="
-                width:100%;
-                margin-top:10px;
-                padding:12px;
-                border-radius:12px;
-                border:none;
-                background:rgba(255,255,255,0.08);
-                color:white;
-            "
+            placeholder="40999"
         >
+    </div>
+
+    <button class="save-price-btn" onclick="guardar()">
+        ✅
+    </button>
+
+</div>
 </div>
 
     <div id="status"></div>
