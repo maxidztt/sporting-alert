@@ -46,7 +46,7 @@ jobs:
             "sporting": ${{ github.event.inputs.sporting }},
             "woker": ${{ github.event.inputs.woker }},
             "dexter": ${{ github.event.inputs.dexter }},
-            "seven": ${{ github.event.inputs.seven }}
+            "seven": ${{ github.event.inputs.seven }},
             "dash": ${{ github.event.inputs.dash }}
           }
           EOF
