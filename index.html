@@ -244,6 +244,20 @@
                 <div id="sportingBadge" class="badge">Cargando</div>
             </div>
             <button id="sportingBtn">Cargando...</button>
+            <input
+                type="number"
+                id="precio_sporting"
+                placeholder="Precio máximo"
+                style="
+                    width:100%;
+                    margin-top:10px;
+                    padding:12px;
+                    border-radius:12px;
+                    border:none;
+                    background:rgba(255,255,255,0.08);
+                    color:white;
+                "
+            >
         </div>
 
         <div class="card">
@@ -258,6 +272,20 @@
                 <div id="wokerBadge" class="badge">Cargando</div>
             </div>
             <button id="wokerBtn">Cargando...</button>
+            <input
+                type="number"
+                id="precio_woker"
+                placeholder="Precio máximo"
+                style="
+                    width:100%;
+                    margin-top:10px;
+                    padding:12px;
+                    border-radius:12px;
+                    border:none;
+                    background:rgba(255,255,255,0.08);
+                    color:white;
+                "
+            >
         </div>
 
         <div class="card">
@@ -272,6 +300,20 @@
                 <div id="dexterBadge" class="badge">Cargando</div>
             </div>
             <button id="dexterBtn">Cargando...</button>
+            <input
+                type="number"
+                id="precio_dexter"
+                placeholder="Precio máximo"
+                style="
+                    width:100%;
+                    margin-top:10px;
+                    padding:12px;
+                    border-radius:12px;
+                    border:none;
+                    background:rgba(255,255,255,0.08);
+                    color:white;
+                "
+            >
         </div>
 
         <div class="card">
@@ -286,6 +328,20 @@
                 <div id="sevenBadge" class="badge">Cargando</div>
             </div>
             <button id="sevenBtn">Cargando...</button>
+              <input
+                type="number"
+                id="precio_seven"
+                placeholder="Precio máximo"
+                style="
+                    width:100%;
+                    margin-top:10px;
+                    padding:12px;
+                    border-radius:12px;
+                    border:none;
+                    background:rgba(255,255,255,0.08);
+                    color:white;
+                "
+            >
         </div>
     </div>
 
@@ -301,6 +357,20 @@
         <div id="dashBadge" class="badge">Cargando</div>
     </div>
     <button id="dashBtn">Cargando...</button>
+        <input
+            type="number"
+            id="precio_dash"
+            placeholder="Precio máximo"
+            style="
+                width:100%;
+                margin-top:10px;
+                padding:12px;
+                border-radius:12px;
+                border:none;
+                background:rgba(255,255,255,0.08);
+                color:white;
+            "
+        >
 </div>
 
     <div id="status"></div>
@@ -309,13 +379,19 @@
 
 <script>
 const WORKER_URL = "https://alert-control.tolediazmaxi.workers.dev";
-
+    
 const estado = {
     sporting: true,
     woker: true,
     dexter: true,
     seven: true,
-    dash: true
+    dash: true,
+
+    precio_sporting: 46000,
+    precio_woker: 51000,
+    precio_dexter: 45000,
+    precio_seven: 40999,
+    precio_dash: 40999
 };
 
 function setBadge(id, isOn) {
@@ -355,6 +431,27 @@ async function cargarEstado() {
         estado.dexter = config.dexter;
         estado.seven = config.seven;
         estado.dash = config.dash;
+
+        estado.precio_sporting = config.precio_sporting;
+        estado.precio_woker = config.precio_woker;
+        estado.precio_dexter = config.precio_dexter;
+        estado.precio_seven = config.precio_seven;
+        estado.precio_dash = config.precio_dash;
+
+        document.getElementById("precio_sporting").value =
+            estado.precio_sporting;
+        
+        document.getElementById("precio_woker").value =
+            estado.precio_woker;
+        
+        document.getElementById("precio_dexter").value =
+            estado.precio_dexter;
+        
+        document.getElementById("precio_seven").value =
+            estado.precio_seven;
+        
+        document.getElementById("precio_dash").value =
+            estado.precio_dash;
     } catch (error) {
         console.error("Error cargando config_alertas.json:", error);
     }
@@ -371,13 +468,29 @@ async function guardar() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                sporting: estado.sporting,
-                woker: estado.woker,
-                dexter: estado.dexter,
-                seven: estado.seven,
-                dash: estado.dash
-            })
+ body: JSON.stringify({
+
+    sporting: estado.sporting,
+    woker: estado.woker,
+    dexter: estado.dexter,
+    seven: estado.seven,
+    dash: estado.dash,
+
+    precio_sporting:
+        Number(document.getElementById("precio_sporting").value),
+
+    precio_woker:
+        Number(document.getElementById("precio_woker").value),
+
+    precio_dexter:
+        Number(document.getElementById("precio_dexter").value),
+
+    precio_seven:
+        Number(document.getElementById("precio_seven").value),
+
+    precio_dash:
+        Number(document.getElementById("precio_dash").value)
+})
         });
 
         if (!response.ok) {
