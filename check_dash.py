@@ -7,7 +7,7 @@ from typing import Any
 TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
-PRECIO_MAXIMO = 39000
+PRECIO_MAXIMO = 40999
 
 try:
     with open("config_alertas.json", "r", encoding="utf-8") as f:
