@@ -8,8 +8,16 @@ from bs4 import BeautifulSoup
 
 TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
+try:
+    with open("config_alertas.json", "r", encoding="utf-8") as f:
+        CONFIG = json.load(f)
 
-PRECIO_MAXIMO = 45000
+    ENVIAR_ALERTAS = CONFIG.get("dexter", True)
+    PRECIO_MAXIMO = CONFIG.get("precio_dexter", 45000)
+
+except Exception:
+    ENVIAR_ALERTAS = True
+    PRECIO_MAXIMO = 45000
 
 try:
     with open("config_alertas.json", "r", encoding="utf-8") as f:
