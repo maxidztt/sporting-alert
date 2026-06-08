@@ -27,6 +27,31 @@ on:
         description: "Dash enabled"
         required: true
         default: "true"
+        
+      precio_sporting:
+        description: "Precio Sporting"
+        required: true
+        default: "46000"
+      
+      precio_woker:
+        description: "Precio Woker"
+        required: true
+        default: "51000"
+      
+      precio_dexter:
+        description: "Precio Dexter"
+        required: true
+        default: "45000"
+      
+      precio_seven:
+        description: "Precio Seven"
+        required: true
+        default: "40999"
+      
+      precio_dash:
+        description: "Precio Dash"
+        required: true
+        default: "40999"
 
 permissions:
   contents: write
@@ -47,7 +72,13 @@ jobs:
             "woker": ${{ github.event.inputs.woker }},
             "dexter": ${{ github.event.inputs.dexter }},
             "seven": ${{ github.event.inputs.seven }},
-            "dash": ${{ github.event.inputs.dash }}
+            "dash": ${{ github.event.inputs.dash }},
+
+            "precio_sporting": ${{ github.event.inputs.precio_sporting }},
+            "precio_woker": ${{ github.event.inputs.precio_woker }},
+            "precio_dexter": ${{ github.event.inputs.precio_dexter }},
+            "precio_seven": ${{ github.event.inputs.precio_seven }},
+            "precio_dash": ${{ github.event.inputs.precio_dash }}
           }
           EOF
 
