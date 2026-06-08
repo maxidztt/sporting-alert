@@ -22,6 +22,11 @@ on:
         description: "Seven enabled"
         required: true
         default: "true"
+     
+     dash:
+        description: "Dash enabled"
+        required: true
+        default: "true"
 
 permissions:
   contents: write
