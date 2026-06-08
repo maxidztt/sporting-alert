@@ -1,54 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alert Control Center</title>
-
-<style>
-body{
-    font-family: Arial, sans-serif;
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 20px;
-}
-
-.card{
-    border:1px solid #ddd;
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:15px;
-}
-
-button{
-    padding:10px 20px;
-    font-size:16px;
-    cursor:pointer;
-    width:100%;
-}
-
-#status{
-    margin-top:20px;
-    font-weight:bold;
-}
-</style>
-</head>
-<body>
-
-<h1>Alert Control Center</h1>
-
-<div class="card">
-    <h2>Dexter Alert</h2>
-    <button id="dexterBtn">Cargando...</button>
-</div>
-
-<div class="card">
-    <h2>Seven Alert</h2>
-    <button id="sevenBtn">Cargando...</button>
-</div>
-
-<div id="status"></div>
-
 <script>
 
 const WORKER_URL =
@@ -70,6 +19,29 @@ function actualizarBotones() {
         estado.seven
             ? "🟢 ACTIVADO"
             : "🔴 DESACTIVADO";
+}
+
+async function cargarEstado() {
+
+    try {
+
+        const response = await fetch(
+            "https://maxidztt.github.io/sporting-alert/config_alertas.json?t=" + Date.now()
+        );
+
+        const config = await response.json();
+
+        estado.dexter = config.dexter;
+        estado.seven = config.seven;
+
+        actualizarBotones();
+
+    } catch (e) {
+
+        console.error(e);
+
+        actualizarBotones();
+    }
 }
 
 async function guardar() {
@@ -134,9 +106,6 @@ document.getElementById("sevenBtn")
     await guardar();
 };
 
-actualizarBotones();
+cargarEstado();
 
 </script>
-
-</body>
-</html>
