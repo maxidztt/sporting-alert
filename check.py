@@ -13,7 +13,16 @@ BASE_API_URL = os.getenv(
     "https://www.sporting.com.ar/api/catalog_system/pub/products/search/sporting/calzado",
 )
 
-PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "46000"))
+try:
+    with open("config_alertas.json", "r", encoding="utf-8") as f:
+        CONFIG = json.load(f)
+
+    ENVIAR_ALERTAS = CONFIG.get("sporting", True)
+    PRECIO_MAXIMO = CONFIG.get("precio_sporting", 46000)
+
+except Exception:
+    ENVIAR_ALERTAS = True
+    PRECIO_MAXIMO = 46000
 try:
     with open("config_alertas.json", "r", encoding="utf-8") as f:
         CONFIG = json.load(f)
