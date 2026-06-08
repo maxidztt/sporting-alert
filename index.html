@@ -289,6 +289,20 @@
         </div>
     </div>
 
+    <div class="card">
+    <div class="card-top">
+        <div class="brand">
+            <div class="logo">🟨</div>
+            <div>
+                <h2>Dash</h2>
+                <p>Control de notificaciones</p>
+            </div>
+        </div>
+        <div id="dashBadge" class="badge">Cargando</div>
+    </div>
+    <button id="dashBtn">Cargando...</button>
+</div>
+
     <div id="status"></div>
     <div class="footer">Hecho por Maxi</div>
 </div>
@@ -300,7 +314,8 @@ const estado = {
     sporting: true,
     woker: true,
     dexter: true,
-    seven: true
+    seven: true,
+    dash: true
 };
 
 function setBadge(id, isOn) {
@@ -321,11 +336,13 @@ function actualizarBotones() {
     setButtonState("wokerBtn", estado.woker);
     setButtonState("dexterBtn", estado.dexter);
     setButtonState("sevenBtn", estado.seven);
+    setButtonState("dashBtn", estado.dash);
 
     setBadge("sportingBadge", estado.sporting);
     setBadge("wokerBadge", estado.woker);
     setBadge("dexterBadge", estado.dexter);
     setBadge("sevenBadge", estado.seven);
+    setButtonState("dashBtn", estado.dash);
 }
 
 async function cargarEstado() {
@@ -357,7 +374,8 @@ async function guardar() {
                 sporting: estado.sporting,
                 woker: estado.woker,
                 dexter: estado.dexter,
-                seven: estado.seven
+                seven: estado.seven,
+                dash: estado.dash
             })
         });
 
@@ -392,6 +410,12 @@ document.getElementById("dexterBtn").addEventListener("click", async () => {
 
 document.getElementById("sevenBtn").addEventListener("click", async () => {
     estado.seven = !estado.seven;
+    actualizarBotones();
+    await guardar();
+});
+
+document.getElementById("dashBtn").addEventListener("click", async () => {
+    estado.dash = !estado.dash;
     actualizarBotones();
     await guardar();
 });
