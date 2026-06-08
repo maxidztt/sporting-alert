@@ -13,7 +13,16 @@ BASE_API_URL = os.getenv(
     "https://www.wokerbysporting.com.ar/api/catalog_system/pub/products/search/woker/calzado",
 )
 
-PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "51000"))
+try:
+    with open("config_alertas.json", "r", encoding="utf-8") as f:
+        CONFIG = json.load(f)
+
+    ENVIAR_ALERTAS = CONFIG.get("woker", True)
+    PRECIO_MAXIMO = CONFIG.get("precio_woker", 51000)
+
+except Exception:
+    ENVIAR_ALERTAS = True
+    PRECIO_MAXIMO = 51000
 try:
     with open("config_alertas.json", "r", encoding="utf-8") as f:
         CONFIG = json.load(f)
