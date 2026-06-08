@@ -1,7 +1,7 @@
 {
-  "sporting": false,
+  "sporting": true,
   "woker": true,
   "dexter": true,
   "seven": true
-  "dash": true
+  "dash": false
 }
