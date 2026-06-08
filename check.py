@@ -14,6 +14,14 @@ BASE_API_URL = os.getenv(
 )
 
 PRECIO_MAXIMO = int(os.getenv("PRECIO_MAXIMO", "46000"))
+try:
+    with open("config_alertas.json", "r", encoding="utf-8") as f:
+        CONFIG = json.load(f)
+
+    ENVIAR_ALERTAS = CONFIG.get("sporting", True)
+
+except Exception:
+    ENVIAR_ALERTAS = True
 PAGINAS_A_REVISAR = int(os.getenv("PAGINAS_A_REVISAR", "5"))
 PRODUCTOS_POR_PAGINA = int(os.getenv("PRODUCTOS_POR_PAGINA", "24"))
 HISTORIAL_ALERTAS_PATH = Path(os.getenv("HISTORIAL_ALERTAS_PATH", "sent_offers.json"))
@@ -62,6 +70,10 @@ def clave_oferta(precio: int, link: str) -> str:
 
 def enviar_telegram(mensaje: str) -> None:
     import requests
+
+    if not ENVIAR_ALERTAS:
+        print("Alertas Sporting desactivadas.")
+        return
 
     if not TOKEN or not CHAT_ID:
         raise RuntimeError("Faltan TELEGRAM_TOKEN o TELEGRAM_CHAT_ID en las variables de entorno.")
