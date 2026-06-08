@@ -331,20 +331,23 @@
                 <div id="wokerBadge" class="badge">Cargando</div>
             </div>
             <button id="wokerBtn">Cargando...</button>
-            <input
-                type="number"
-                id="precio_woker"
-                placeholder="Precio máximo"
-                style="
-                    width:100%;
-                    margin-top:10px;
-                    padding:12px;
-                    border-radius:12px;
-                    border:none;
-                    background:rgba(255,255,255,0.08);
-                    color:white;
-                "
-            >
+<div class="precio-input-group">
+
+    <div class="precio-box">
+        <span class="precio-prefix">Max $</span>
+
+        <input
+            type="number"
+            id="precio_woker"
+            placeholder="51000"
+        >
+    </div>
+
+    <button class="save-price-btn" onclick="guardar()">
+        ✅
+    </button>
+
+</div>
         </div>
 
         <div class="card">
