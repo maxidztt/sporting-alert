@@ -342,7 +342,7 @@ function actualizarBotones() {
     setBadge("wokerBadge", estado.woker);
     setBadge("dexterBadge", estado.dexter);
     setBadge("sevenBadge", estado.seven);
-    setButtonState("dashBtn", estado.dash);
+    setBadge("dashBadge", estado.dash);
 }
 
 async function cargarEstado() {
@@ -354,6 +354,7 @@ async function cargarEstado() {
         estado.woker = config.woker;
         estado.dexter = config.dexter;
         estado.seven = config.seven;
+        estado.dash = config.dash;
     } catch (error) {
         console.error("Error cargando config_alertas.json:", error);
     }
