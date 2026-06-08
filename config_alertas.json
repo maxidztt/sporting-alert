@@ -1,6 +1,6 @@
 {
   "sporting": false,
-  "woker": true,
-  "dexter": false,
+  "woker": false,
+  "dexter": true,
   "seven": true
 }
