@@ -24,6 +24,12 @@
       "link": "https://www.sevensport.com.ar/zapatillas-hombre-head-san-diego-moda-hehc125twh25/p",
       "sent_at": "2026-06-08T03:30:47.133535+00:00"
     },
+    "zapatillas hombre new balance 80|40000": {
+      "name": "Zapatillas Hombre New Balance 80",
+      "price": 40000,
+      "link": "https://www.sevensport.com.ar/zapatillas-hombre-new-balance-80-moda-bb80bnn/p",
+      "sent_at": "2026-06-08T18:14:30.703396+00:00"
+    },
     "zapatillas mujer head plataforma denver|43999": {
       "name": "Zapatillas Mujer Head Plataforma Denver",
       "price": 43999,
@@ -54,11 +60,23 @@
       "link": "https://www.sevensport.com.ar/zapatillas-mujer-head-san-diego-moda-hedc125bbh29/p",
       "sent_at": "2026-06-08T03:30:47.133535+00:00"
     },
+    "zapatillas mujer reebok energen run 4|40000": {
+      "name": "Zapatillas Mujer Reebok Energen Run 4",
+      "price": 40000,
+      "link": "https://www.sevensport.com.ar/zapatillas-mujer-reebok-energen-run-4-entrenamiento-100209951/p",
+      "sent_at": "2026-06-08T18:14:30.703396+00:00"
+    },
     "zapatillas mujer reebok royal complete sport|37499": {
       "name": "Zapatillas Mujer Reebok Royal Complete Sport",
       "price": 37499,
       "link": "https://www.sevensport.com.ar/zapatillas-mujer-reebok-royal-complete-sport-moda-gw1542/p",
       "sent_at": "2026-06-08T03:27:47.221868+00:00"
+    },
+    "zapatillas mujer topper strong pace iii|36750": {
+      "name": "Zapatillas Mujer Topper Strong Pace Iii",
+      "price": 36750,
+      "link": "https://www.sevensport.com.ar/zapatillas-mujer-topper-strong-pace-iii-entrenamiento-026223/p",
+      "sent_at": "2026-06-08T18:14:30.703396+00:00"
     },
     "zapatillas reebok court advance clip hombre|33000": {
       "name": "Zapatillas Reebok Court Advance Clip Hombre",
@@ -83,6 +101,18 @@
       "price": 32850,
       "link": "https://www.sevensport.com.ar/zapatillas-unisex-converse-chuck-taylor-all-star-ox-moda-157196c/p",
       "sent_at": "2026-06-08T03:27:47.221868+00:00"
+    },
+    "zapatillas unisex reebok court advance|33000": {
+      "name": "Zapatillas Unisex Reebok Court Advance",
+      "price": 33000,
+      "link": "https://www.sevensport.com.ar/zapatillas-unisex-reebok-court-advance-moda-100010616/p",
+      "sent_at": "2026-06-08T18:14:30.703396+00:00"
+    },
+    "zapatillas unisex reebok smash edge|33000": {
+      "name": "Zapatillas Unisex Reebok Smash Edge",
+      "price": 33000,
+      "link": "https://www.sevensport.com.ar/zapatillas-unisex-reebok-smash-edge-moda-100208245/p",
+      "sent_at": "2026-06-08T18:14:30.703396+00:00"
     }
   }
 }
