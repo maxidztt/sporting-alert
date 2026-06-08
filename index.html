@@ -4,65 +4,297 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alert Control Center</title>
-
 <style>
-body{
-    font-family: Arial, sans-serif;
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 20px;
-}
+    :root{
+        --bg1: #07111f;
+        --bg2: #0c1728;
+        --card: rgba(255,255,255,0.06);
+        --card-border: rgba(255,255,255,0.10);
+        --text: #e9eef7;
+        --muted: #9fb0c7;
+        --accent: #23c7b8;
+        --accent-2: #2f8cff;
+        --danger: #ff5d6c;
+        --success: #2ee59d;
+        --shadow: 0 16px 40px rgba(0,0,0,0.30);
+        --radius: 22px;
+    }
 
-.card{
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 15px;
-}
+    *{
+        box-sizing: border-box;
+    }
 
-button{
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    cursor: pointer;
-}
+    body{
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        color: var(--text);
+        background:
+            radial-gradient(circle at top left, rgba(35,199,184,0.18), transparent 30%),
+            radial-gradient(circle at top right, rgba(47,140,255,0.16), transparent 28%),
+            linear-gradient(180deg, var(--bg1), var(--bg2));
+        padding: 24px 16px 40px;
+    }
 
-#status{
-    margin-top: 20px;
-    font-weight: bold;
-}
+    .container{
+        max-width: 680px;
+        margin: 0 auto;
+    }
+
+    .hero{
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+        border: 1px solid var(--card-border);
+        border-radius: 28px;
+        padding: 24px 22px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        margin-bottom: 18px;
+    }
+
+    .hero::after{
+        content: "";
+        position: absolute;
+        inset: auto -40px -50px auto;
+        width: 180px;
+        height: 180px;
+        background: radial-gradient(circle, rgba(35,199,184,0.18), transparent 68%);
+        pointer-events: none;
+    }
+
+    .title{
+        margin: 0;
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        line-height: 1.05;
+    }
+
+    .subtitle{
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.5;
+        max-width: 54ch;
+    }
+
+    .grid{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .card{
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        border-radius: var(--radius);
+        padding: 18px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    .card-top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 14px;
+    }
+
+    .brand{
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .logo{
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-size: 20px;
+        flex: 0 0 auto;
+        background: linear-gradient(135deg, rgba(35,199,184,0.22), rgba(47,140,255,0.18));
+        border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .brand h2{
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+
+    .brand p{
+        margin: 4px 0 0;
+        font-size: 13px;
+        color: var(--muted);
+    }
+
+    .badge{
+        flex: 0 0 auto;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.05);
+        color: var(--muted);
+    }
+
+    .badge.on{
+        color: var(--success);
+        background: rgba(46,229,157,0.10);
+        border-color: rgba(46,229,157,0.20);
+    }
+
+    .badge.off{
+        color: var(--danger);
+        background: rgba(255,93,108,0.10);
+        border-color: rgba(255,93,108,0.20);
+    }
+
+    button{
+        width: 100%;
+        border: 0;
+        border-radius: 18px;
+        padding: 16px 18px;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        cursor: pointer;
+        color: #07111f;
+        background: linear-gradient(135deg, var(--accent), #59f2dd);
+        box-shadow: 0 10px 24px rgba(35,199,184,0.18);
+        transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    button:hover{
+        transform: translateY(-1px);
+        filter: brightness(1.03);
+        box-shadow: 0 14px 28px rgba(35,199,184,0.24);
+    }
+
+    button:active{
+        transform: translateY(0px) scale(0.99);
+    }
+
+    .silenced{
+        background: linear-gradient(135deg, #ffb86b, #ff7f50);
+        box-shadow: 0 10px 24px rgba(255,127,80,0.18);
+    }
+
+    #status{
+        margin-top: 18px;
+        padding: 14px 16px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.10);
+        color: var(--text);
+        font-weight: 600;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+    }
+
+    .footer{
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 12px;
+        text-align: center;
+        opacity: 0.9;
+    }
+
+    @media (min-width: 760px){
+        .grid{
+            grid-template-columns: 1fr 1fr;
+        }
+    }
 </style>
 </head>
 <body>
+<div class="container">
 
-<h1>Alert Control Center</h1>
+    <div class="hero">
+        <h1 class="title">Alert Control Center</h1>
+        <p class="subtitle">
+            Activá o silenciá las alertas desde el iPhone. El panel guarda los cambios y los sincroniza con GitHub automáticamente.
+        </p>
+    </div>
 
-<div class="card">
-    <h2>Sporting Alert</h2>
-    <button id="sportingBtn">Cargando...</button>
+    <div class="grid">
+        <div class="card">
+            <div class="card-top">
+                <div class="brand">
+                    <div class="logo">🟩</div>
+                    <div>
+                        <h2>Sporting Alert</h2>
+                        <p>Control de notificaciones</p>
+                    </div>
+                </div>
+                <div id="sportingBadge" class="badge">Cargando</div>
+            </div>
+            <button id="sportingBtn">Cargando...</button>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div class="brand">
+                    <div class="logo">⬛</div>
+                    <div>
+                        <h2>Woker Alert</h2>
+                        <p>Control de notificaciones</p>
+                    </div>
+                </div>
+                <div id="wokerBadge" class="badge">Cargando</div>
+            </div>
+            <button id="wokerBtn">Cargando...</button>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div class="brand">
+                    <div class="logo">🟥</div>
+                    <div>
+                        <h2>Dexter Alert</h2>
+                        <p>Control de notificaciones</p>
+                    </div>
+                </div>
+                <div id="dexterBadge" class="badge">Cargando</div>
+            </div>
+            <button id="dexterBtn">Cargando...</button>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <div class="brand">
+                    <div class="logo">🟪</div>
+                    <div>
+                        <h2>Seven Alert</h2>
+                        <p>Control de notificaciones</p>
+                    </div>
+                </div>
+                <div id="sevenBadge" class="badge">Cargando</div>
+            </div>
+            <button id="sevenBtn">Cargando...</button>
+        </div>
+    </div>
+
+    <div id="status">Listo para controlar las alertas.</div>
+    <div class="footer">Alert Control Center • GitHub Pages + Cloudflare Worker</div>
 </div>
-
-<div class="card">
-    <h2>Woker Alert</h2>
-    <button id="wokerBtn">Cargando...</button>
-</div>
-
-<div class="card">
-    <h2>Dexter Alert</h2>
-    <button id="dexterBtn">Cargando...</button>
-</div>
-
-<div class="card">
-    <h2>Seven Alert</h2>
-    <button id="sevenBtn">Cargando...</button>
-</div>
-
-<div id="status"></div>
 
 <script>
-
-const WORKER_URL =
-"https://alert-control.tolediazmaxi.workers.dev";
+const WORKER_URL = "https://alert-control.tolediazmaxi.workers.dev";
 
 const estado = {
     sporting: true,
@@ -71,139 +303,100 @@ const estado = {
     seven: true
 };
 
+function setBadge(id, isOn) {
+    const badge = document.getElementById(id);
+    badge.textContent = isOn ? "🔊 Activo" : "🔇 Silencio";
+    badge.classList.toggle("on", isOn);
+    badge.classList.toggle("off", !isOn);
+}
+
+function setButtonState(id, isOn) {
+    const btn = document.getElementById(id);
+    btn.textContent = isOn ? "🔊 ACTIVADO" : "🔇 SILENCIADO";
+    btn.classList.toggle("silenced", !isOn);
+}
+
 function actualizarBotones() {
+    setButtonState("sportingBtn", estado.sporting);
+    setButtonState("wokerBtn", estado.woker);
+    setButtonState("dexterBtn", estado.dexter);
+    setButtonState("sevenBtn", estado.seven);
 
-    document.getElementById("sportingBtn").textContent =
-        estado.sporting
-            ? "🟢 ACTIVADO"
-            : "🔴 DESACTIVADO";
-
-    document.getElementById("wokerBtn").textContent =
-        estado.woker
-            ? "🟢 ACTIVADO"
-            : "🔴 DESACTIVADO";
-
-    document.getElementById("dexterBtn").textContent =
-        estado.dexter
-            ? "🟢 ACTIVADO"
-            : "🔴 DESACTIVADO";
-
-    document.getElementById("sevenBtn").textContent =
-        estado.seven
-            ? "🟢 ACTIVADO"
-            : "🔴 DESACTIVADO";
+    setBadge("sportingBadge", estado.sporting);
+    setBadge("wokerBadge", estado.woker);
+    setBadge("dexterBadge", estado.dexter);
+    setBadge("sevenBadge", estado.seven);
 }
 
 async function cargarEstado() {
-
     try {
-
-        const response = await fetch(
-            "./config_alertas.json?t=" + Date.now()
-        );
-
+        const response = await fetch("./config_alertas.json?t=" + Date.now());
         const config = await response.json();
 
         estado.sporting = config.sporting;
         estado.woker = config.woker;
         estado.dexter = config.dexter;
         estado.seven = config.seven;
-
     } catch (error) {
-
-        console.error(
-            "Error cargando config_alertas.json:",
-            error
-        );
+        console.error("Error cargando config_alertas.json:", error);
     }
 
     actualizarBotones();
 }
 
 async function guardar() {
-
-    document.getElementById("status").textContent =
-        "⏳ Guardando...";
+    document.getElementById("status").textContent = "⏳ Guardando...";
 
     try {
-
-        const response = await fetch(
-            WORKER_URL,
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    sporting: estado.sporting,
-                    woker: estado.woker,
-                    dexter: estado.dexter,
-                    seven: estado.seven
-                })
-            }
-        );
+        const response = await fetch(WORKER_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                sporting: estado.sporting,
+                woker: estado.woker,
+                dexter: estado.dexter,
+                seven: estado.seven
+            })
+        });
 
         if (!response.ok) {
-            throw new Error(
-                "Error al actualizar configuración"
-            );
+            throw new Error("Error al actualizar configuración");
         }
 
-        document.getElementById("status").textContent =
-            "✅ Configuración actualizada";
-
+        document.getElementById("status").textContent = "✅ Configuración actualizada";
     } catch (error) {
-
         console.error(error);
-
-        document.getElementById("status").textContent =
-            "❌ Error al guardar";
+        document.getElementById("status").textContent = "❌ Error al guardar";
     }
 }
 
-document.getElementById("sportingBtn")
-    .addEventListener("click", async () => {
+document.getElementById("sportingBtn").addEventListener("click", async () => {
+    estado.sporting = !estado.sporting;
+    actualizarBotones();
+    await guardar();
+});
 
-        estado.sporting = !estado.sporting;
+document.getElementById("wokerBtn").addEventListener("click", async () => {
+    estado.woker = !estado.woker;
+    actualizarBotones();
+    await guardar();
+});
 
-        actualizarBotones();
+document.getElementById("dexterBtn").addEventListener("click", async () => {
+    estado.dexter = !estado.dexter;
+    actualizarBotones();
+    await guardar();
+});
 
-        await guardar();
-    });
-
-document.getElementById("wokerBtn")
-    .addEventListener("click", async () => {
-
-        estado.woker = !estado.woker;
-
-        actualizarBotones();
-
-        await guardar();
-    });
-
-document.getElementById("dexterBtn")
-    .addEventListener("click", async () => {
-
-        estado.dexter = !estado.dexter;
-
-        actualizarBotones();
-
-        await guardar();
-    });
-
-document.getElementById("sevenBtn")
-    .addEventListener("click", async () => {
-
-        estado.seven = !estado.seven;
-
-        actualizarBotones();
-
-        await guardar();
-    });
+document.getElementById("sevenBtn").addEventListener("click", async () => {
+    estado.seven = !estado.seven;
+    actualizarBotones();
+    await guardar();
+});
 
 cargarEstado();
-
 </script>
-
 </body>
 </html>
