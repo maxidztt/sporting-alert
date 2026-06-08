@@ -23,7 +23,7 @@ on:
         required: true
         default: "true"
      
-     dash:
+      dash:
         description: "Dash enabled"
         required: true
         default: "true"
