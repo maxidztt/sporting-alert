@@ -219,56 +219,49 @@
             grid-template-columns: 1fr 1fr;
         }
     }
-    .precio-row{
-    margin-top:10px;
-}
-
-.precio-info{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:8px;
-}
-
-.max-label{
-    color:#aab3c2;
-    font-size:13px;
-}
-
-.max-value{
-    color:#e9eef7;
-    font-size:13px;
-    font-weight:700;
-}
-
 .precio-input-group{
     display:flex;
-    gap:8px;
     align-items:center;
+    gap:12px;
+    margin-top:12px;
 }
 
-.precio-input-group input{
+.precio-box{
     flex:1;
+    display:flex;
+    align-items:center;
     background:rgba(255,255,255,0.08);
+    border-radius:16px;
+    padding:0 16px;
+}
+
+.precio-prefix{
+    color:#aab3c2;
+    font-size:15px;
+    font-weight:600;
+    margin-right:12px;
+    white-space:nowrap;
+}
+
+.precio-box input{
+    flex:1;
+    background:transparent;
     border:none;
-    border-radius:12px;
-    padding:12px 14px;
+    outline:none;
     color:white;
-    font-size:14px;
+    font-size:16px;
+    font-weight:700;
+    padding:16px 0;
 }
 
 .save-price-btn{
-    width:46px;
-    height:46px;
+    width:52px;
+    height:52px;
     border:none;
-    border-radius:14px;
+    border-radius:16px;
     background:rgba(35,199,184,0.15);
-    color:#59f2dd;
-    font-size:18px;
+    font-size:22px;
     cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
 }
 </style>
 </head>
@@ -297,13 +290,16 @@
             </div>
             <button id="sportingBtn">Cargando...</button>
 <div class="precio-input-group">
-    <span class="precio-prefix">Max $</span>
 
-    <input
-        type="number"
-        id="precio_sporting"
-        placeholder="47000"
-    >
+    <div class="precio-box">
+        <span class="precio-prefix">Max $</span>
+
+        <input
+            type="number"
+            id="precio_sporting"
+            placeholder="46000"
+        >
+    </div>
 
     <button class="save-price-btn" onclick="guardar()">
         💾
