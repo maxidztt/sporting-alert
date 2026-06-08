@@ -3,10 +3,21 @@ name: Update Alerts Config
 on:
   workflow_dispatch:
     inputs:
+      sporting:
+        description: "Sporting enabled"
+        required: true
+        default: "true"
+
+      woker:
+        description: "Woker enabled"
+        required: true
+        default: "true"
+
       dexter:
         description: "Dexter enabled"
         required: true
         default: "true"
+
       seven:
         description: "Seven enabled"
         required: true
@@ -27,6 +38,8 @@ jobs:
         run: |
           cat > config_alertas.json << EOF
           {
+            "sporting": ${{ github.event.inputs.sporting }},
+            "woker": ${{ github.event.inputs.woker }},
             "dexter": ${{ github.event.inputs.dexter }},
             "seven": ${{ github.event.inputs.seven }}
           }
