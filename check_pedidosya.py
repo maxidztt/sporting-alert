@@ -25,13 +25,7 @@ PALABRAS_CLAVE = [
     "stickers",
 ]
 
-try:
-    with open("config_alertas.json", "r", encoding="utf-8") as f:
-        CONFIG = json.load(f)
 
-    ENVIAR_ALERTAS = CONFIG.get("pedidosya", True)
-
-except Exception:
     ENVIAR_ALERTAS = True
 
 
@@ -60,10 +54,6 @@ def guardar_historial(historial):
 
 
 def enviar_telegram(mensaje):
-    if not ENVIAR_ALERTAS:
-        print("Alertas PedidosYa desactivadas.")
-        return
-
     response = requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         json={
