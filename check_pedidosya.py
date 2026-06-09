@@ -69,13 +69,25 @@ def enviar_telegram(mensaje):
 def obtener_categorias():
     url = f"https://www.pedidosya.com.ar/groceries/web/v1/vendors/{VENDOR_ID}/categories"
 
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/137.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/json",
+        "Referer": "https://www.pedidosya.com.ar/",
+        "Origin": "https://www.pedidosya.com.ar"
+    }
+
     response = requests.get(
         url,
-        headers={
-            "User-Agent": "Mozilla/5.0"
-        },
+        headers=headers,
         timeout=30
     )
+
+    print("STATUS:", response.status_code)
+    print("BODY:", response.text[:1000])
 
     response.raise_for_status()
 
