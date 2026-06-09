@@ -5,8 +5,8 @@ from datetime import datetime, timezone
 
 import requests
 
-TOKEN = os.getenv("TELEGRAM_TOKEN") or "<TOKEN_LOCAL>"
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "<CHAT_ID_LOCAL>"
+TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 VENDOR_ID = "183015"
 
