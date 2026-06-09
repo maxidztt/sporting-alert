@@ -26,7 +26,7 @@ PALABRAS_CLAVE = [
 ]
 
 
-    ENVIAR_ALERTAS = True
+ENVIAR_ALERTAS = True
 
 
 def cargar_historial():
