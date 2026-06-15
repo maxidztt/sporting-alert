@@ -52,6 +52,11 @@ on:
         description: "Precio Dash"
         required: true
         default: "40999"
+      
+      onsports:
+        description: "OnSports enabled"
+        required: true
+        default: "true"
 
 permissions:
   contents: write
@@ -73,12 +78,15 @@ jobs:
             "dexter": ${{ github.event.inputs.dexter }},
             "seven": ${{ github.event.inputs.seven }},
             "dash": ${{ github.event.inputs.dash }},
+            "onsports": ${{ github.event.inputs.onsports }},
 
             "precio_sporting": ${{ github.event.inputs.precio_sporting }},
             "precio_woker": ${{ github.event.inputs.precio_woker }},
             "precio_dexter": ${{ github.event.inputs.precio_dexter }},
             "precio_seven": ${{ github.event.inputs.precio_seven }},
-            "precio_dash": ${{ github.event.inputs.precio_dash }}
+            "precio_dash": ${{ github.event.inputs.precio_dash }},
+            "precio_onsports": ${{ github.event.inputs.precio_onsports }}
+            
           }
           EOF
 
