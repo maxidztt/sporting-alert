@@ -1,10 +1,10 @@
 {
   "sporting": true,
-  "woker": true,
+  "woker": false,
   "dexter": false,
-  "seven": false,
-  "dash": false,
-  "onsports": false,
+  "seven": true,
+  "dash": true,
+  "onsports": true,
 
   "precio_sporting": 46000,
   "precio_woker": 51000,
