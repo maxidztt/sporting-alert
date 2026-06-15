@@ -27,6 +27,11 @@ on:
         description: "Dash enabled"
         required: true
         default: "true"
+      
+      onsports:
+        description: "OnSports enabled"
+        required: true
+        default: "true"
         
       precio_sporting:
         description: "Precio Sporting"
@@ -52,11 +57,12 @@ on:
         description: "Precio Dash"
         required: true
         default: "40999"
-      
-      onsports:
-        description: "OnSports enabled"
+
+      precio_onsports:
+        description: "Precio OnSports"
         required: true
-        default: "true"
+        default: "40999"
+
 
 permissions:
   contents: write
