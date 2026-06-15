@@ -167,7 +167,19 @@ def main() -> None:
             nombre = producto.get("productName", "").strip()
             link = producto.get("link", "")
             precio = extraer_precio_producto(producto)
+            
+            nombre_lower = nombre.lower()
 
+            if any(x in nombre_lower for x in [
+                "silbato",
+                "venda",
+                "medias",
+                "gorro",
+                "bocha",
+                "soga",
+                "tarjeta",
+            ]):
+                continue
             if not nombre or precio is None:
                 continue
 
