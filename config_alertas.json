@@ -4,10 +4,12 @@
   "dexter": true,
   "seven": true,
   "dash": true,
+  "onsports": true,
 
   "precio_sporting": 46000,
   "precio_woker": 46000,
   "precio_dexter": 45000,
   "precio_seven": 40999,
-  "precio_dash": 40999
+  "precio_dash": 40999,
+  "precio_onsports": 40999
 }
