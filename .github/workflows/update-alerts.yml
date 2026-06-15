@@ -56,7 +56,7 @@ on:
       onsports:
         description: "OnSports enabled"
         required: true
-        default: "40999"
+        default: "true"
 
 permissions:
   contents: write
