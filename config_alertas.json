@@ -3,8 +3,8 @@
   "woker": true,
   "dexter": true,
   "seven": true,
-  "dash": true,
-  "onsports": true,
+  "dash": false,
+  "onsports": false,
 
   "precio_sporting": 46000,
   "precio_woker": 51000,
