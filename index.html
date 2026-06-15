@@ -411,18 +411,49 @@
         </div>
     </div>
 
-    <div class="card">
+        <div class="card">
+        <div class="card-top">
+            <div class="brand">
+                <div class="logo">🟨</div>
+                <div>
+                    <h2>Dash</h2>
+                    <p>Control de notificaciones</p>
+                </div>
+            </div>
+            <div id="dashBadge" class="badge">Cargando</div>
+        </div>
+        <button id="dashBtn">Cargando...</button>
+    <div class="precio-input-group">
+
+        <div class="precio-box">
+            <span class="precio-prefix">Max $</span>
+
+            <input
+                type="number"
+                id="precio_dash"
+                placeholder="40999"
+            >
+        </div>
+
+        <button class="save-price-btn" onclick="guardar()">
+            ✅
+        </button>
+        </div>
+    </div>
+
+
+        <div class="card">
     <div class="card-top">
         <div class="brand">
-            <div class="logo">🟨</div>
+            <div class="logo">🟧</div>
             <div>
-                <h2>Dash</h2>
+                <h2>OnSports</h2>
                 <p>Control de notificaciones</p>
             </div>
         </div>
-        <div id="dashBadge" class="badge">Cargando</div>
+        <div id="onsportsBadge" class="badge">Cargando</div>
     </div>
-    <button id="dashBtn">Cargando...</button>
+    <button id="onsportsBtn">Cargando...</button>
 <div class="precio-input-group">
 
     <div class="precio-box">
@@ -430,7 +461,7 @@
 
         <input
             type="number"
-            id="precio_dash"
+            id="precio_onsports"
             placeholder="40999"
         >
     </div>
@@ -455,12 +486,14 @@ const estado = {
     dexter: true,
     seven: true,
     dash: true,
+    onsports: true,
 
     precio_sporting: 46000,
     precio_woker: 51000,
     precio_dexter: 45000,
     precio_seven: 40999,
-    precio_dash: 40999
+    precio_dash: 40999,
+    precio_onsports: 40999
 };
 
 function setBadge(id, isOn) {
@@ -482,12 +515,14 @@ function actualizarBotones() {
     setButtonState("dexterBtn", estado.dexter);
     setButtonState("sevenBtn", estado.seven);
     setButtonState("dashBtn", estado.dash);
+    setButtonState("onsportsBtn", estado.onsports);
 
     setBadge("sportingBadge", estado.sporting);
     setBadge("wokerBadge", estado.woker);
     setBadge("dexterBadge", estado.dexter);
     setBadge("sevenBadge", estado.seven);
     setBadge("dashBadge", estado.dash);
+    setBadge("onsportsBadge", estado.onsports);
 }
 
 async function cargarEstado() {
@@ -500,12 +535,14 @@ async function cargarEstado() {
         estado.dexter = config.dexter;
         estado.seven = config.seven;
         estado.dash = config.dash;
+        estado.onsports = config.onsports;
 
         estado.precio_sporting = config.precio_sporting;
         estado.precio_woker = config.precio_woker;
         estado.precio_dexter = config.precio_dexter;
         estado.precio_seven = config.precio_seven;
         estado.precio_dash = config.precio_dash;
+        estado.precio_onsports = config.precio_onsports;
 
         document.getElementById("precio_sporting").value =
             estado.precio_sporting;
@@ -521,6 +558,9 @@ async function cargarEstado() {
         
         document.getElementById("precio_dash").value =
             estado.precio_dash;
+        
+        document.getElementById("precio_onsports").value =
+             estado.precio_onsports;
     } catch (error) {
         console.error("Error cargando config_alertas.json:", error);
     }
@@ -544,6 +584,7 @@ async function guardar() {
     dexter: estado.dexter,
     seven: estado.seven,
     dash: estado.dash,
+    onsports: estado.onsports,
 
     precio_sporting:
         Number(document.getElementById("precio_sporting").value),
@@ -558,7 +599,9 @@ async function guardar() {
         Number(document.getElementById("precio_seven").value),
 
     precio_dash:
-        Number(document.getElementById("precio_dash").value)
+        Number(document.getElementById("precio_dash").value),
+    precio_onsports:
+         Number(document.getElementById("precio_onsports").value),
 })
         });
 
@@ -599,6 +642,11 @@ document.getElementById("sevenBtn").addEventListener("click", async () => {
 
 document.getElementById("dashBtn").addEventListener("click", async () => {
     estado.dash = !estado.dash;
+    actualizarBotones();
+    await guardar();
+});
+document.getElementById("onsportsBtn").addEventListener("click", async () => {
+    estado.onsports = !estado.onsports;
     actualizarBotones();
     await guardar();
 });
