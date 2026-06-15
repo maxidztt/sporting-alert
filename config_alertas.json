@@ -1,8 +1,8 @@
 {
   "sporting": true,
   "woker": true,
-  "dexter": true,
-  "seven": true,
+  "dexter": false,
+  "seven": false,
   "dash": false,
   "onsports": false,
 
