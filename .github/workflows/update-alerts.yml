@@ -63,7 +63,9 @@ on:
         required: true
         default: "40999"
 
-
+concurrency:
+  group: update-alerts
+  cancel-in-progress: true
 permissions:
   contents: write
 
