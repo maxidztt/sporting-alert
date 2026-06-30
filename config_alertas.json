@@ -5,12 +5,14 @@
   "seven": true,
   "dash": true,
   "onsports": true,
+  "vaypol": true,
 
   "precio_sporting": 46000,
   "precio_woker": 51000,
   "precio_dexter": 45000,
   "precio_seven": 45000,
   "precio_dash": 45000,
-  "precio_onsports": 45000
+  "precio_onsports": 45000,
+  "precio_vaypol": 40000
   
 }
