@@ -414,6 +414,31 @@
         <div class="card">
         <div class="card-top">
             <div class="brand">
+                           <div class="logo">🟪</div>
+            
+            <h2>Vaypol</h2>
+            
+            <div id="vaypolBadge" class="badge">Cargando</div>
+            
+            <button id="vaypolBtn">Cargando...</button>
+            
+            <input
+                type="number"
+                id="precio_vaypol"
+                placeholder="40000"
+            >
+        </div>
+
+        <button class="save-price-btn" onclick="guardar()">
+            ✅
+        </button>
+        </div>
+    </div>
+
+
+                <div class="card">
+        <div class="card-top">
+            <div class="brand">
                 <div class="logo">🟨</div>
                 <div>
                     <h2>Dash</h2>
@@ -440,6 +465,7 @@
         </button>
         </div>
     </div>
+        
 
 
         <div class="card">
@@ -487,13 +513,15 @@ const estado = {
     seven: true,
     dash: true,
     onsports: true,
+    vaypol: true,
 
     precio_sporting: 46000,
     precio_woker: 51000,
     precio_dexter: 45000,
     precio_seven: 40999,
     precio_dash: 40999,
-    precio_onsports: 40999
+    precio_onsports: 40999,
+    precio_vaypol: 40000
 };
 
 function setBadge(id, isOn) {
@@ -516,6 +544,7 @@ function actualizarBotones() {
     setButtonState("sevenBtn", estado.seven);
     setButtonState("dashBtn", estado.dash);
     setButtonState("onsportsBtn", estado.onsports);
+    setButtonState("vaypolBtn", estado.vaypol);
 
     setBadge("sportingBadge", estado.sporting);
     setBadge("wokerBadge", estado.woker);
@@ -523,6 +552,7 @@ function actualizarBotones() {
     setBadge("sevenBadge", estado.seven);
     setBadge("dashBadge", estado.dash);
     setBadge("onsportsBadge", estado.onsports);
+    setBadge("vaypolBadge", estado.vaypol);
 }
 
 async function cargarEstado() {
@@ -536,6 +566,7 @@ async function cargarEstado() {
         estado.seven = config.seven;
         estado.dash = config.dash;
         estado.onsports = config.onsports;
+        estado.vaypol = config.vaypol;
 
         estado.precio_sporting = config.precio_sporting;
         estado.precio_woker = config.precio_woker;
@@ -543,6 +574,7 @@ async function cargarEstado() {
         estado.precio_seven = config.precio_seven;
         estado.precio_dash = config.precio_dash;
         estado.precio_onsports = config.precio_onsports;
+        estado.precio_vaypol = config.precio_vaypol;
 
         document.getElementById("precio_sporting").value =
             estado.precio_sporting;
@@ -561,6 +593,10 @@ async function cargarEstado() {
         
         document.getElementById("precio_onsports").value =
              estado.precio_onsports;
+
+        document.getElementById("precio_vaypol").value =
+             estado.precio_vaypol;
+        
     } catch (error) {
         console.error("Error cargando config_alertas.json:", error);
     }
@@ -585,6 +621,7 @@ async function guardar() {
     seven: estado.seven,
     dash: estado.dash,
     onsports: estado.onsports,
+    vaypol: estado.vaypol,
 
     precio_sporting:
         Number(document.getElementById("precio_sporting").value),
@@ -600,8 +637,13 @@ async function guardar() {
 
     precio_dash:
         Number(document.getElementById("precio_dash").value),
+     
     precio_onsports:
          Number(document.getElementById("precio_onsports").value),
+
+    precio_vaypol:
+    Number(document.getElementById("precio_vaypol").value),
+     
 })
         });
 
@@ -647,6 +689,12 @@ document.getElementById("dashBtn").addEventListener("click", async () => {
 });
 document.getElementById("onsportsBtn").addEventListener("click", async () => {
     estado.onsports = !estado.onsports;
+    actualizarBotones();
+    await guardar();
+});
+
+document.getElementById("vaypolBtn").addEventListener("click", async () => {
+    estado.vaypol = !estado.vaypol;
     actualizarBotones();
     await guardar();
 });
