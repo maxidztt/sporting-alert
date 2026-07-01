@@ -6,8 +6,8 @@ from datetime import datetime, timezone
 
 import requests
 
-TOKEN = os.getenv("TELEGRAM_TOKEN") or "TU_TOKEN"
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "TU_CHAT_ID"
+TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA" 
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 BASE_URL = "https://www.vaypol.com.ar"
 
@@ -36,18 +36,15 @@ PALABRAS_EXCLUIDAS = (
 
 
 def cargar_config():
-
     with open(
         "config_alertas.json",
         "r",
         encoding="utf-8"
     ) as f:
-
         return json.load(f)
 
 
 def cargar_historial():
-
     if not HISTORIAL_PATH.exists():
         return {}
 
@@ -56,18 +53,15 @@ def cargar_historial():
         "r",
         encoding="utf-8"
     ) as f:
-
         return json.load(f)
 
 
 def guardar_historial(historial):
-
     with open(
         HISTORIAL_PATH,
         "w",
         encoding="utf-8"
     ) as f:
-
         json.dump(
             historial,
             f,
@@ -77,7 +71,6 @@ def guardar_historial(historial):
 
 
 def enviar_telegram(texto):
-
     requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         json={
@@ -89,7 +82,6 @@ def enviar_telegram(texto):
 
 
 def obtener_build():
-
     r = requests.get(
         BASE_URL + "/productos/o/ofertas/p/1",
         headers={
@@ -108,18 +100,12 @@ def obtener_build():
     )
 
     if not m:
-        raise Exception(
-            "No pude obtener el Build ID"
-        )
+        raise Exception("No pude obtener el Build ID")
 
     return m.group(1)
 
 
-def obtener_productos(
-    build,
-    pagina
-):
-
+def obtener_productos(build, pagina):
     url = (
         f"{BASE_URL}"
         f"/_next/data/{build}"
@@ -147,19 +133,10 @@ def obtener_productos(
 
     data = r.json()
 
-    return data[
-        "pageProps"
-    ][
-        "initialReduxState"
-    ][
-        "products"
-    ][
-        "items"
-    ]
+    return data["pageProps"]["initialReduxState"]["products"]["items"]
 
 
 def producto_permitido(nombre):
-
     nombre = nombre.lower()
 
     return not any(
@@ -169,7 +146,6 @@ def producto_permitido(nombre):
 
 
 def limpiar_precio(texto):
-
     if texto is None:
         return None
 
@@ -183,20 +159,18 @@ def limpiar_precio(texto):
 
 
 def clave(nombre, precio):
-
     return (
         nombre.lower().strip()
         + "|"
         + str(precio)
     )
-    def revisar_ofertas():
 
-        config = cargar_config()
+
+def revisar_ofertas():
+    config = cargar_config()
 
     if not config.get("vaypol", True):
-
         print("Alertas de Vaypol desactivadas.")
-
         return []
 
     precio_maximo = config.get(
@@ -211,45 +185,32 @@ def clave(nombre, precio):
     print(f"Build ID: {build}")
 
     nuevas = []
-
     vistos = set()
 
     for pagina in range(
         1,
         PAGINAS_A_REVISAR + 1
     ):
-
-        print(
-            f"Página {pagina}"
-        )
+        print(f"Página {pagina}")
 
         try:
-
             productos = obtener_productos(
                 build,
                 pagina
             )
 
         except Exception as e:
-
             print(e)
-
             continue
 
         if not productos:
             break
 
         for producto in productos:
-
             try:
+                nombre = producto["name"].strip()
 
-                nombre = producto[
-                    "name"
-                ].strip()
-
-                if not producto_permitido(
-                    nombre
-                ):
+                if not producto_permitido(nombre):
                     continue
 
                 precios = producto.get(
@@ -258,23 +219,15 @@ def clave(nombre, precio):
                 )
 
                 precio = (
-                    precios.get(
-                        "discount"
-                    )
-                    or precios.get(
-                        "sale_price"
-                    )
-                    or precios.get(
-                        "original"
-                    )
+                    precios.get("discount")
+                    or precios.get("sale_price")
+                    or precios.get("original")
                 )
 
                 if not precio:
                     continue
 
-                precio = limpiar_precio(
-                    precio
-                )
+                precio = limpiar_precio(precio)
 
                 if precio > precio_maximo:
                     continue
@@ -298,89 +251,59 @@ def clave(nombre, precio):
                     continue
 
                 historial[k] = {
-
                     "nombre": nombre,
-
                     "precio": precio,
-
                     "link": link,
-
                     "fecha": datetime.now(
                         timezone.utc
                     ).isoformat()
-
                 }
 
                 nuevas.append({
-
                     "nombre": nombre,
-
                     "precio": precio,
-
                     "link": link
-
                 })
 
             except Exception:
-
                 continue
 
-    guardar_historial(
-        historial
-    )
+    guardar_historial(historial)
 
     return nuevas
-    def main():
 
+
+def main():
     try:
-
         ofertas = revisar_ofertas()
 
     except Exception as e:
-
         print(e)
-
         return
 
     if not ofertas:
-
-        print(
-            "No hay ofertas nuevas."
-        )
-
+        print("No hay ofertas nuevas.")
         return
 
     mensajes = []
 
     for oferta in ofertas[:10]:
-
         mensajes.append(
-
             "\n".join([
-
-                "🔥 OFERTA 🟪VAYPOL🟪",
-
+                "🔥 OFERTA ⬜VAYPOL⬜",
                 "",
-
                 f"Producto: {oferta['nombre']}",
-
                 f"Precio: ${oferta['precio']:,}".replace(",", "."),
-
                 "",
-
                 oferta["link"]
-
             ])
-
         )
 
     mensaje = "\n\n--------------\n\n".join(
         mensajes
     )
 
-    enviar_telegram(
-        mensaje
-    )
+    enviar_telegram(mensaje)
 
     print(
         f"Enviadas {len(ofertas[:10])} ofertas."
@@ -388,5 +311,4 @@ def clave(nombre, precio):
 
 
 if __name__ == "__main__":
-
     main()
