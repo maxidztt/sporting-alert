@@ -32,6 +32,12 @@ on:
         description: "OnSports enabled"
         required: true
         default: "true"
+
+      vaypol:
+        description: "Vaypol enabled"
+        required: true
+        default: "true"
+
         
       precio_sporting:
         description: "Precio Sporting"
@@ -62,6 +68,11 @@ on:
         description: "Precio OnSports"
         required: true
         default: "40999"
+        
+      precio_vaypol:
+        description: "Precio Vaypol"
+        required: true
+        default: "40000"
 
 concurrency:
   group: update-alerts
@@ -87,13 +98,15 @@ jobs:
             "seven": ${{ github.event.inputs.seven }},
             "dash": ${{ github.event.inputs.dash }},
             "onsports": ${{ github.event.inputs.onsports }},
+            "vaypol": ${{ github.event.inputs.vaypol }},
 
             "precio_sporting": ${{ github.event.inputs.precio_sporting }},
             "precio_woker": ${{ github.event.inputs.precio_woker }},
             "precio_dexter": ${{ github.event.inputs.precio_dexter }},
             "precio_seven": ${{ github.event.inputs.precio_seven }},
             "precio_dash": ${{ github.event.inputs.precio_dash }},
-            "precio_onsports": ${{ github.event.inputs.precio_onsports }}
+            "precio_onsports": ${{ github.event.inputs.precio_onsports }},
+            "precio_vaypol": ${{ github.event.inputs.precio_vaypol }}
             
           }
           EOF
