@@ -208,6 +208,19 @@ def revisar_ofertas():
             break
 
         for producto in productos:
+
+            import json
+        
+            print(
+                json.dumps(
+                    producto,
+                    indent=2,
+                    ensure_ascii=False
+                )[:5000]
+            )
+        
+            return []
+
             try:
                 nombre = producto["name"].strip()
 
