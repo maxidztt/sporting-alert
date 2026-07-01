@@ -128,9 +128,11 @@ def obtener_productos(build, pagina):
     )
     data = r.json()
     
-    print(
-        data["pageProps"]["initialReduxState"]["products"].keys()
-    )
+    items = data["pageProps"]["initialReduxState"]["products"]["items"]
+    
+    print(f"Cantidad de productos: {len(items)}")
+    
+    print(items[0])
     
     raise Exception("Fin")
 
