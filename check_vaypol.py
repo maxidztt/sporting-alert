@@ -82,6 +82,7 @@ def enviar_telegram(texto):
 
 
 def obtener_build():
+
     r = requests.get(
         BASE_URL + "/productos/o/ofertas/p/1",
         headers={
@@ -92,17 +93,9 @@ def obtener_build():
 
     r.raise_for_status()
 
-    html = r.text
+    print(r.text[:5000])
 
-    m = re.search(
-        r'/_next/data/([^/]+)/',
-        html
-    )
-
-    if not m:
-        raise Exception("No pude obtener el Build ID")
-
-    return m.group(1)
+    raise Exception("Fin de prueba")
 
 
 def obtener_productos(build, pagina):
