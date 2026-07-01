@@ -222,11 +222,9 @@ def revisar_ofertas():
                 )
 
                 precio = (
-                    precios.get("discount")
-                    or precios.get("sale_price")
+                    precios.get("sale_price")
                     or precios.get("original")
                 )
-
                 if not precio:
                     continue
 
