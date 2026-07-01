@@ -235,7 +235,8 @@ def revisar_ofertas():
 
                 link = (
                     BASE_URL
-                    + producto["url"]
+                    + "/"
+                    + producto["url"].lstrip("/")
                 )
 
                 k = clave(
