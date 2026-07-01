@@ -84,7 +84,7 @@ def enviar_telegram(texto):
 def obtener_build():
 
     r = requests.get(
-        BASE_URL + "/hombre/calzado/zapatillas/p/1",
+        BASE_URL + "/calzado/p/1",
         headers={
             "User-Agent": "Mozilla/5.0"
         },
@@ -110,16 +110,15 @@ def obtener_productos(build, pagina):
     url = (
         f"{BASE_URL}"
         f"/_next/data/{build}"
-        f"/hombre/calzado/zapatillas/p/{pagina}.json"
+        f"/calzado/p/{pagina}.json"
     )
 
     r = requests.get(
         url,
         params={
-            "slugGender": "hombre",
             "slugMicrosite": "calzado",
-            "slugCategory": "zapatillas",
-            "page": pagina
+            "page": pagina,
+            "o": "orderbypriceasc"
         },
         headers={
             "User-Agent": "Mozilla/5.0",
@@ -129,19 +128,10 @@ def obtener_productos(build, pagina):
     )
 
     r.raise_for_status()
+
     data = r.json()
-    
-    import json
-    
-    print(
-        json.dumps(
-            data,
-            indent=2,
-            ensure_ascii=False
-        )[:6000]
-    )
-    
-    raise Exception("Fin")
+
+    return data["pageProps"]["initialReduxState"]["products"]["items"]
 
 
 def producto_permitido(nombre):
@@ -219,6 +209,11 @@ def revisar_ofertas():
 
             try:
                 nombre = producto["name"].strip()
+
+                nombre_lower = nombre.lower()
+
+                if "zapatilla" not in nombre_lower:
+                    continue
 
                 if not producto_permitido(nombre):
                     continue
