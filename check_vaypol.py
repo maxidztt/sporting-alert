@@ -128,15 +128,7 @@ def obtener_productos(build, pagina):
     )
     data = r.json()
     
-    import json
-    
-    print(
-        json.dumps(
-            data,
-            indent=2,
-            ensure_ascii=False
-        )[:6000]
-    )
+    print(data["pageProps"].keys())
     
     raise Exception("Fin")
 
