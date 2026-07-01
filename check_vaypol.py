@@ -191,7 +191,7 @@ def clave(nombre, precio):
     )
     def revisar_ofertas():
 
-    config = cargar_config()
+        config = cargar_config()
 
     if not config.get("vaypol", True):
 
