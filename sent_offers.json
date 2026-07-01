@@ -60,6 +60,12 @@
       "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-aguw2401fg-000/p",
       "sent_at": "2026-06-16T21:22:01.910130+00:00"
     },
+    "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-aguw2401fg-000/p|49999": {
+      "name": "Botines Joma Aguila FG De Hombre",
+      "price": 49999,
+      "link": "https://www.sporting.com.ar/botines-joma-aguila-fg-de-hombre-aguw2401fg-000/p",
+      "sent_at": "2026-07-01T06:47:01.991117+00:00"
+    },
     "https://www.sporting.com.ar/botines-joma-aguila-tf-de-hombre-aguw2404tf-000/p|34999": {
       "name": "Botines Joma Aguila TF De Hombre",
       "price": 34999,
@@ -71,6 +77,24 @@
       "price": 38399,
       "link": "https://www.sporting.com.ar/botines-joma-propulsion-cup-fg-de-hombre-pcus2401fg-000/p",
       "sent_at": "2026-06-16T21:22:01.910130+00:00"
+    },
+    "https://www.sporting.com.ar/botines-joma-propulsion-cup-fg-de-hombre-pcus2401fg-000/p|47999": {
+      "name": "Botines Joma Propulsion Cup FG De Hombre",
+      "price": 47999,
+      "link": "https://www.sporting.com.ar/botines-joma-propulsion-cup-fg-de-hombre-pcus2401fg-000/p",
+      "sent_at": "2026-07-01T06:47:01.991117+00:00"
+    },
+    "https://www.sporting.com.ar/botines-umbro-attak-iii-tf-de-hombre-01fb00435815-000/p|48959": {
+      "name": "Botines Umbro Attak III TF De Hombre",
+      "price": 48959,
+      "link": "https://www.sporting.com.ar/botines-umbro-attak-iii-tf-de-hombre-01fb00435815-000/p",
+      "sent_at": "2026-07-01T06:47:01.991117+00:00"
+    },
+    "https://www.sporting.com.ar/botines-umbro-campo-attak-eternal-de-hombre-u01fb071184-000/p|47519": {
+      "name": "Botines Umbro Campo Attak Eternal De Hombre",
+      "price": 47519,
+      "link": "https://www.sporting.com.ar/botines-umbro-campo-attak-eternal-de-hombre-u01fb071184-000/p",
+      "sent_at": "2026-07-01T06:47:01.991117+00:00"
     },
     "https://www.sporting.com.ar/botines-umbro-heatmap-tf-de-hombre-01fb00329723-000/p|37399": {
       "name": "Botines Umbro Heatmap TF De Hombre",
@@ -102,6 +126,12 @@
       "link": "https://www.sporting.com.ar/zapatillas-puma-skyrocket-lite-de-mujer-1010001-005/p",
       "sent_at": "2026-06-25T18:27:54.310428+00:00"
     },
+    "https://www.sporting.com.ar/zapatillas-topper-capitan-tt-unisex-2243560-000/p|47599": {
+      "name": "Zapatillas Topper Capitan TT Unisex",
+      "price": 47599,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-capitan-tt-unisex-2243560-000/p",
+      "sent_at": "2026-07-01T06:47:01.991117+00:00"
+    },
     "https://www.sporting.com.ar/zapatillas-topper-mamba-ii-unisex-2296810-000/p|43999": {
       "name": "Zapatillas Topper Mamba II Unisex",
       "price": 43999,
@@ -119,6 +149,12 @@
       "price": 44249,
       "link": "https://www.sporting.com.ar/zapatillas-topper-terre-print-de-mujer-2501980-000/p",
       "sent_at": "2026-06-24T20:13:01.278589+00:00"
+    },
+    "https://www.sporting.com.ar/zapatillas-topper-vallarta-unisex-252221-000/p|48749": {
+      "name": "Zapatillas Topper Vallarta Unisex",
+      "price": 48749,
+      "link": "https://www.sporting.com.ar/zapatillas-topper-vallarta-unisex-252221-000/p",
+      "sent_at": "2026-07-01T06:47:01.991117+00:00"
     },
     "https://www.sporting.com.ar/zapatos-mocassino-alsa-popa-1-de-hombre-14210-neg/p|29999": {
       "name": "Zapatos Mocassino Alsa Popa 1 De Hombre",
