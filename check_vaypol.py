@@ -84,7 +84,7 @@ def enviar_telegram(texto):
 def obtener_build():
 
     r = requests.get(
-        BASE_URL + "/productos/p/1",
+        BASE_URL + "/hombre/calzado/zapatillas/p/1",
         headers={
             "User-Agent": "Mozilla/5.0"
         },
@@ -110,15 +110,16 @@ def obtener_productos(build, pagina):
     url = (
         f"{BASE_URL}"
         f"/_next/data/{build}"
-        f"/calzado/p/{pagina}.json"
+        f"/hombre/calzado/zapatillas/p/{pagina}.json"
     )
 
     r = requests.get(
         url,
         params={
+            "slugGender": "hombre",
             "slugMicrosite": "calzado",
-            "page": pagina,
-            "o": "orderbypriceasc"
+            "slugCategory": "zapatillas",
+            "page": pagina
         },
         headers={
             "User-Agent": "Mozilla/5.0",
@@ -126,15 +127,12 @@ def obtener_productos(build, pagina):
         },
         timeout=30
     )
+
+    r.raise_for_status()
+
     data = r.json()
-    
-    items = data["pageProps"]["initialReduxState"]["products"]["items"]
-    
-    print(f"Cantidad de productos: {len(items)}")
-    
-    print(items[0])
-    
-    raise Exception("Fin")
+
+    return data["pageProps"]["initialReduxState"]["products"]["items"]
 
 
 def producto_permitido(nombre):
