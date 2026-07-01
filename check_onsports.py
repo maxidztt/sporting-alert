@@ -1,34 +1,19 @@
 import json
 import os
-from datetime import datetime, timezone
+import re
 from pathlib import Path
-from typing import Any
+from datetime import datetime, timezone
 
-TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA"
+import requests
+
+TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSrq_SNcA" 
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
-try:
-    with open("config_alertas.json", "r", encoding="utf-8") as f:
-        CONFIG = json.load(f)
-
-    ENVIAR_ALERTAS = CONFIG.get("onsports", True)
-    PRECIO_MAXIMO = CONFIG.get("precio_onsports", 40999)
-
-except Exception:
-    ENVIAR_ALERTAS = True
-    PRECIO_MAXIMO = 40999
-
-
-BASE_API_URL = (
-    "https://www.onsports.com.ar/"
-    "api/catalog_system/pub/products/search/"
-    "calzado/zapatillas"
-)
+BASE_URL = "https://www.vaypol.com.ar"
 
 PAGINAS_A_REVISAR = 5
-PRODUCTOS_POR_PAGINA = 24
 
-HISTORIAL_PATH = Path("sent_offers_onsports.json")
+HISTORIAL_PATH = Path("sent_offers_vaypol.json")
 
 PALABRAS_EXCLUIDAS = (
     "ojota", "ojotas",
@@ -39,222 +24,290 @@ PALABRAS_EXCLUIDAS = (
     "bebe", "bebes",
     "bebé", "bebés",
     "infantil",
-    "juvenil", "Juvenil",
+    "juvenil",
+    "silbato",
+    "venda",
+    "medias",
+    "gorro",
+    "bocha",
+    "soga",
+    "tarjeta"
 )
 
 
-def cargar_historial(path: Path = HISTORIAL_PATH) -> dict[str, dict[str, Any]]:
-    if not path.exists():
+def cargar_config():
+    with open(
+        "config_alertas.json",
+        "r",
+        encoding="utf-8"
+    ) as f:
+        return json.load(f)
+
+
+def cargar_historial():
+    if not HISTORIAL_PATH.exists():
         return {}
 
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-    sent = data.get("sent", {})
-
-    if isinstance(sent, list):
-        return {key: {"key": key} for key in sent}
-
-    if not isinstance(sent, dict):
-        return {}
-
-    return sent
+    with open(
+        HISTORIAL_PATH,
+        "r",
+        encoding="utf-8"
+    ) as f:
+        return json.load(f)
 
 
-def guardar_historial(
-    historial: dict[str, dict[str, Any]],
-    path: Path = HISTORIAL_PATH,
-) -> None:
-    data = {"sent": dict(sorted(historial.items()))}
-
-    path.write_text(
-        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
-
-def clave_oferta(nombre: str, precio: int) -> str:
-    return f"{nombre.strip().lower()}|{precio}"
+def guardar_historial(historial):
+    with open(
+        HISTORIAL_PATH,
+        "w",
+        encoding="utf-8"
+    ) as f:
+        json.dump(
+            historial,
+            f,
+            ensure_ascii=False,
+            indent=2
+        )
 
 
-def enviar_telegram(mensaje: str) -> None:
-    import requests
-
-    if not ENVIAR_ALERTAS:
-        print("Alertas desactivadas.")
-        return
-
-    response = requests.post(
+def enviar_telegram(texto):
+    requests.post(
         f"https://api.telegram.org/bot{TOKEN}/sendMessage",
         json={
             "chat_id": CHAT_ID,
-            "text": mensaje,
+            "text": texto
         },
-        timeout=20,
+        timeout=20
     )
 
-    response.raise_for_status()
+
+def obtener_build():
+    r = requests.get(
+        BASE_URL + "/productos/o/ofertas/p/1",
+        headers={
+            "User-Agent": "Mozilla/5.0"
+        },
+        timeout=30
+    )
+
+    r.raise_for_status()
+
+    html = r.text
+
+    m = re.search(
+        r'/_next/data/([^/]+)/',
+        html
+    )
+
+    if not m:
+        raise Exception("No pude obtener el Build ID")
+
+    return m.group(1)
 
 
-def obtener_productos(numero_pagina: int) -> list[dict[str, Any]]:
-    import requests
+def obtener_productos(build, pagina):
+    url = (
+        f"{BASE_URL}"
+        f"/_next/data/{build}"
+        f"/productos/o/menor_precio/p/{pagina}.json"
+    )
 
-    desde = (numero_pagina - 1) * PRODUCTOS_POR_PAGINA
-    hasta = desde + PRODUCTOS_POR_PAGINA - 1
-
-    response = requests.get(
-        BASE_API_URL,
+    r = requests.get(
+        url,
         params={
-            "map": "c,c",
-            "O": "OrderByPriceASC",
-            "_from": desde,
-            "_to": hasta,
+            "slugs": [
+                "o",
+                "menor_precio",
+                "p",
+                str(pagina)
+            ]
         },
         headers={
             "User-Agent": "Mozilla/5.0",
+            "x-nextjs-data": "1"
         },
-        timeout=30,
+        timeout=30
     )
 
-    if response.status_code == 403:
-        print("OnSports devolvió 403.")
-        return []
+    r.raise_for_status()
 
-    response.raise_for_status()
+    data = r.json()
 
-    return response.json()
+    return data["pageProps"]["initialReduxState"]["products"]["items"]
 
 
-def extraer_precio_producto(producto: dict[str, Any]) -> int | None:
-    precios = []
+def producto_permitido(nombre):
+    nombre = nombre.lower()
 
-    for item in producto.get("items", []):
-        for seller in item.get("sellers", []):
-            oferta = seller.get("commertialOffer", {})
-            precio = oferta.get("Price")
-            stock = oferta.get("AvailableQuantity", 0)
+    return not any(
+        palabra in nombre
+        for palabra in PALABRAS_EXCLUIDAS
+    )
 
-            if precio and stock:
-                precios.append(float(precio))
 
-    if not precios:
+def limpiar_precio(texto):
+    if texto is None:
         return None
 
-    return int(min(precios))
+    texto = (
+        texto
+        .replace(".", "")
+        .replace(",", ".")
+    )
+
+    return int(float(texto))
 
 
-def producto_permitido(nombre: str) -> bool:
-    nombre = nombre.lower()
-    return not any(p in nombre for p in PALABRAS_EXCLUIDAS)
+def clave(nombre, precio):
+    return (
+        nombre.lower().strip()
+        + "|"
+        + str(precio)
+    )
 
 
-def formatear_oferta(nombre: str, precio: int, link: str) -> str:
-    return "\n".join([
-        "🔥 OFERTA 🟧ON SPORTS🟧",
-        "",
-        f"Producto: {nombre}",
-        f"Precio: ${precio:,}".replace(",", "."),
-        "",
-        link,
-    ])
+def revisar_ofertas():
+    config = cargar_config()
 
+    if not config.get("vaypol", True):
+        print("Alertas de Vaypol desactivadas.")
+        return []
 
-def main() -> None:
+    precio_maximo = config.get(
+        "precio_vaypol",
+        40000
+    )
+
     historial = cargar_historial()
-    nuevas_ofertas = []
+
+    build = obtener_build()
+
+    print(f"Build ID: {build}")
+
+    nuevas = []
     vistos = set()
 
-    for pagina in range(1, PAGINAS_A_REVISAR + 1):
-        print(f"Revisando página {pagina}")
+    for pagina in range(
+        1,
+        PAGINAS_A_REVISAR + 1
+    ):
+        print(f"Página {pagina}")
 
-        productos = obtener_productos(pagina)
+        try:
+            productos = obtener_productos(
+                build,
+                pagina
+            )
+
+        except Exception as e:
+            print(e)
+            continue
 
         if not productos:
             break
 
         for producto in productos:
-            nombre = producto.get("productName", "").strip()
-            link = producto.get("link", "")
-            precio = extraer_precio_producto(producto)
+            try:
+                nombre = producto["name"].strip()
 
-            categorias = " ".join(
-                producto.get("categories", [])
-            ).lower()
+                if not producto_permitido(nombre):
+                    continue
 
-            if "zapatillas" not in categorias:
+                precios = producto.get(
+                    "all_prices",
+                    {}
+                )
+
+                precio = (
+                    precios.get("discount")
+                    or precios.get("sale_price")
+                    or precios.get("original")
+                )
+
+                if not precio:
+                    continue
+
+                precio = limpiar_precio(precio)
+
+                if precio > precio_maximo:
+                    continue
+
+                link = (
+                    BASE_URL
+                    + producto["url"]
+                )
+
+                k = clave(
+                    nombre,
+                    precio
+                )
+
+                if k in vistos:
+                    continue
+
+                vistos.add(k)
+
+                if k in historial:
+                    continue
+
+                historial[k] = {
+                    "nombre": nombre,
+                    "precio": precio,
+                    "link": link,
+                    "fecha": datetime.now(
+                        timezone.utc
+                    ).isoformat()
+                }
+
+                nuevas.append({
+                    "nombre": nombre,
+                    "precio": precio,
+                    "link": link
+                })
+
+            except Exception:
                 continue
 
-            nombre_lower = nombre.lower()
+    guardar_historial(historial)
 
-            if any(x in nombre_lower for x in [
-                "silbato",
-                "venda",
-                "medias",
-                "gorro",
-                "bocha",
-                "soga",
-                "tarjeta",
-            ]):
-                continue
+    return nuevas
 
-            if not nombre or precio is None:
-                continue
 
-            if not producto_permitido(nombre):
-                continue
+def main():
+    try:
+        ofertas = revisar_ofertas()
 
-            if precio > PRECIO_MAXIMO:
-                continue
+    except Exception as e:
+        print(e)
+        return
 
-            key = clave_oferta(nombre, precio)
-
-            if key in vistos:
-                continue
-
-            vistos.add(key)
-
-            if key in historial:
-                continue
-
-            nuevas_ofertas.append({
-                "key": key,
-                "nombre": nombre,
-                "precio": precio,
-                "link": link,
-            })
-
-    if not nuevas_ofertas:
+    if not ofertas:
         print("No hay ofertas nuevas.")
         return
 
-    ofertas_a_enviar = nuevas_ofertas[:10]
+    mensajes = []
+
+    for oferta in ofertas[:10]:
+        mensajes.append(
+            "\n".join([
+                "🔥 OFERTA ⬜VAYPOL⬜",
+                "",
+                f"Producto: {oferta['nombre']}",
+                f"Precio: ${oferta['precio']:,}".replace(",", "."),
+                "",
+                oferta["link"]
+            ])
+        )
 
     mensaje = "\n\n--------------\n\n".join(
-        formatear_oferta(
-            oferta["nombre"],
-            oferta["precio"],
-            oferta["link"],
-        )
-        for oferta in ofertas_a_enviar
+        mensajes
     )
 
     enviar_telegram(mensaje)
 
-    sent_at = datetime.now(timezone.utc).isoformat()
-
-    for oferta in ofertas_a_enviar:
-        historial[oferta["key"]] = {
-            "name": oferta["nombre"],
-            "price": oferta["precio"],
-            "link": oferta["link"],
-            "sent_at": sent_at,
-        }
-
-    guardar_historial(historial)
-
-    print(f"Enviadas {len(ofertas_a_enviar)} ofertas.")
+    print(
+        f"Enviadas {len(ofertas[:10])} ofertas."
+    )
 
 
 if __name__ == "__main__":
