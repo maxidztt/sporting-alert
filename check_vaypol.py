@@ -10,6 +10,8 @@ TOKEN = os.getenv("TELEGRAM_TOKEN") or "8843148366:AAGcapDQk_NcjVmVkR-pahZeObjSr
 CHAT_ID = os.getenv("TELEGRAM_CHAT_ID") or "7727821551"
 
 BASE_URL = "https://www.vaypol.com.ar"
+CATEGORY_PATH = "/hombre/calzado/zapatillas"
+SORT_PATH = "o/menor_precio"
 
 PAGINAS_A_REVISAR = 5
 
@@ -84,7 +86,7 @@ def enviar_telegram(texto):
 def obtener_build():
 
     r = requests.get(
-        BASE_URL + "/calzado/p/1",
+        f"{BASE_URL}{CATEGORY_PATH}/p/1",
         headers={
             "User-Agent": "Mozilla/5.0"
         },
@@ -110,16 +112,11 @@ def obtener_productos(build, pagina):
     url = (
         f"{BASE_URL}"
         f"/_next/data/{build}"
-        f"/calzado/p/{pagina}.json"
+        f"{CATEGORY_PATH}/{SORT_PATH}/p/{pagina}.json"
     )
 
     r = requests.get(
         url,
-        params={
-            "slugMicrosite": "calzado",
-            "page": pagina,
-            "o": "orderbypriceasc"
-        },
         headers={
             "User-Agent": "Mozilla/5.0",
             "x-nextjs-data": "1"
