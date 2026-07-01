@@ -93,9 +93,17 @@ def obtener_build():
 
     r.raise_for_status()
 
-    print(r.text[:5000])
+    html = r.text
 
-    raise Exception("Fin de prueba")
+    m = re.search(
+        r'"buildId":"([^"]+)"',
+        html
+    )
+
+    if not m:
+        raise Exception("No pude obtener el Build ID")
+
+    return m.group(1)
 
 
 def obtener_productos(build, pagina):
