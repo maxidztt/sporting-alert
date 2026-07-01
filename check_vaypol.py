@@ -117,7 +117,8 @@ def obtener_productos(build, pagina):
         url,
         params={
             "slugMicrosite": "calzado",
-            "page": pagina
+            "page": pagina,
+            "O": "OrderByPriceASC"
         },
         headers={
             "User-Agent": "Mozilla/5.0",
