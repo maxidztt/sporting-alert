@@ -1,0 +1,49 @@
+name: Vaypol Alert
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '55 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vaypol-alert
+  cancel-in-progress: true
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: |
+          pip install requests
+
+      - name: Ejecutar scraper
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python check_vaypol.py
+
+      - name: Guardar historial
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add sent_offers_vaypol.json
+
+          git diff --cached --quiet || git commit -m "Update Vaypol history"
+
+          git pull --rebase origin Sistemas-UCH
+
+          git push origin Sistemas-UCH
