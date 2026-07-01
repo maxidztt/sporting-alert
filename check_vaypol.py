@@ -126,12 +126,19 @@ def obtener_productos(build, pagina):
         },
         timeout=30
     )
-
-    r.raise_for_status()
-
     data = r.json()
-
-    return data["pageProps"]["initialReduxState"]["products"]["items"]
+    
+    import json
+    
+    print(
+        json.dumps(
+            data,
+            indent=2,
+            ensure_ascii=False
+        )[:6000]
+    )
+    
+    raise Exception("Fin")
 
 
 def producto_permitido(nombre):
