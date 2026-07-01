@@ -110,16 +110,14 @@ def obtener_productos(build, pagina):
     url = (
         f"{BASE_URL}"
         f"/_next/data/{build}"
-        f"/productos/p/{pagina}.json"
+        f"/calzado/p/{pagina}.json"
     )
 
     r = requests.get(
         url,
         params={
-            "slugs": [
-                "p",
-                str(pagina)
-            ]
+            "slugMicrosite": "calzado",
+            "page": pagina
         },
         headers={
             "User-Agent": "Mozilla/5.0",
