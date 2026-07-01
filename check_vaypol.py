@@ -84,7 +84,7 @@ def enviar_telegram(texto):
 def obtener_build():
 
     r = requests.get(
-        BASE_URL + "/productos/o/ofertas/p/1",
+        BASE_URL + "/productos/p/1",
         headers={
             "User-Agent": "Mozilla/5.0"
         },
@@ -110,15 +110,13 @@ def obtener_productos(build, pagina):
     url = (
         f"{BASE_URL}"
         f"/_next/data/{build}"
-        f"/productos/o/menor_precio/p/{pagina}.json"
+        f"/productos/p/{pagina}.json"
     )
 
     r = requests.get(
         url,
         params={
             "slugs": [
-                "o",
-                "menor_precio",
                 "p",
                 str(pagina)
             ]
@@ -209,17 +207,6 @@ def revisar_ofertas():
 
         for producto in productos:
 
-            import json
-        
-            print(
-                json.dumps(
-                    producto,
-                    indent=2,
-                    ensure_ascii=False
-                )[:5000]
-            )
-        
-            return []
 
             try:
                 nombre = producto["name"].strip()
@@ -245,7 +232,7 @@ def revisar_ofertas():
 
                 if precio > precio_maximo:
                     continue
-
+                
                 link = (
                     BASE_URL
                     + "/"
