@@ -128,7 +128,9 @@ def obtener_productos(build, pagina):
     )
     data = r.json()
     
-    print(data["pageProps"].keys())
+    print(
+        data["pageProps"]["initialReduxState"].keys()
+    )
     
     raise Exception("Fin")
 
