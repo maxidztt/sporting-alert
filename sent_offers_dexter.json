@@ -449,6 +449,18 @@
       "price": 44909,
       "link": "https://www.dexter.com.ar/zapatillas-atomik-wild-sintetico-mujer/AM211316258BGC0CN.html",
       "sent_at": "2026-06-30T13:01:23.387483+00:00"
+    },
+    "zapatillas atomik contrast tr|29899": {
+      "name": "Zapatillas Atomik Contrast TR",
+      "price": 29899,
+      "link": "https://www.dexter.com.ar/zapatillas-atomik-contrast-tr/AM2113160605CN.html",
+      "sent_at": "2026-07-03T21:54:45.160135+00:00"
+    },
+    "zapatillas atomik contrast|29899": {
+      "name": "Zapatillas Atomik Contrast",
+      "price": 29899,
+      "link": "https://www.dexter.com.ar/zapatillas-atomik-contrast/AM2113160610CN.html",
+      "sent_at": "2026-07-03T21:54:45.160135+00:00"
     }
   }
 }
