@@ -49,6 +49,7 @@ PALABRAS_EXCLUIDAS = (
     "bebes",
     "bebé",
     "bebés",
+    "botines",
 )
 
 
