@@ -551,6 +551,24 @@
       "price": 43999,
       "link": "https://www.dexter.com.ar/zapatillas-fila-racer-sky-mujer/FIF02R00149-5791.html",
       "sent_at": "2026-07-18T17:45:05.019806+00:00"
+    },
+    "zapatillas topper terre|39999": {
+      "name": "Zapatillas Topper Terre",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-terre/TO26455.html",
+      "sent_at": "2026-07-29T08:14:59.971109+00:00"
+    },
+    "zapatillas entrenamiento topper mamba|39999": {
+      "name": "Zapatillas Entrenamiento Topper Mamba",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-entrenamiento-topper-mamba/TO29683.html",
+      "sent_at": "2026-07-29T08:14:59.971109+00:00"
+    },
+    "zapatillas topper candun hombre|44999": {
+      "name": "Zapatillas Topper Candun Hombre",
+      "price": 44999,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-candun-hombre/TO25906.html",
+      "sent_at": "2026-07-29T08:14:59.971109+00:00"
     }
   }
 }
