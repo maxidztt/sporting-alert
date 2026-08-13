@@ -773,6 +773,18 @@
       "price": 40999,
       "link": "https://www.dexter.com.ar/zapatillas-puma-softride-cosmic-trainning/PU400235-11.html",
       "sent_at": "2026-08-06T15:04:00.231160+00:00"
+    },
+    "zapatillas adidas response runner|38999": {
+      "name": "Zapatillas adidas Response Runner",
+      "price": 38999,
+      "link": "https://www.dexter.com.ar/zapatillas-adidas-response-runner/ADJQ2545.html",
+      "sent_at": "2026-08-13T18:44:27.251321+00:00"
+    },
+    "zapatillas topper enforcer|39999": {
+      "name": "Zapatillas Topper Enforcer",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-topper-enforcer/TO25867.html",
+      "sent_at": "2026-08-13T18:44:27.251321+00:00"
     }
   }
 }
