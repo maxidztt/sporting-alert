@@ -24,6 +24,12 @@
       "link": "https://www.sevensport.com.ar/zapatillas-fila-acd-classic-se-mujer-moda-f02l002506129/p",
       "sent_at": "2026-07-21T21:01:36.688123+00:00"
     },
+    "zapatillas hombre head denver|37799": {
+      "name": "Zapatillas Hombre Head Denver",
+      "price": 37799,
+      "link": "https://www.sevensport.com.ar/zapatillas-hombre-head-denver-moda-hehc177c2h25/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
+    },
     "zapatillas hombre head denver|44099": {
       "name": "Zapatillas Hombre Head Denver",
       "price": 44099,
@@ -96,6 +102,12 @@
       "link": "https://www.sevensport.com.ar/zapatillas-hombre-head-standford-entrenamiento-hdhc13901h25/p",
       "sent_at": "2026-07-03T20:58:31.195957+00:00"
     },
+    "zapatillas hombre le coq sportif astra classic retro dress|23700": {
+      "name": "Zapatillas Hombre Le Coq Sportif Astra Classic Retro Dress",
+      "price": 23700,
+      "link": "https://www.sevensport.com.ar/zapatillas-hombre-le-coq-sportif-astra-classic-retro-dress-moda-lfn9924053/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
+    },
     "zapatillas hombre le coq sportif pro star lite|39960": {
       "name": "Zapatillas Hombre Le Coq Sportif Pro Star Lite",
       "price": 39960,
@@ -119,6 +131,12 @@
       "price": 43199,
       "link": "https://www.sevensport.com.ar/zapatillas-hombre-reebok-fluxlite-entrenamiento-ie4488/p",
       "sent_at": "2026-07-15T21:53:39.626681+00:00"
+    },
+    "zapatillas hombre reebok smash edge|33000": {
+      "name": "Zapatillas Hombre Reebok Smash Edge",
+      "price": 33000,
+      "link": "https://www.sevensport.com.ar/zapatillas-hombre-reebok-smash-edge-moda-100208246/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
     },
     "zapatillas hombre reebok split flex|40000": {
       "name": "Zapatillas Hombre Reebok Split Flex",
@@ -360,6 +378,12 @@
       "link": "https://www.sevensport.com.ar/zapatillas-mujer-vans-ward-moda-vn0a3iunw42/p",
       "sent_at": "2026-06-24T21:52:46.716772+00:00"
     },
+    "zapatillas new balance 373 v2 hombre|31500": {
+      "name": "Zapatillas New Balance 373 V2 Hombre",
+      "price": 31500,
+      "link": "https://www.sevensport.com.ar/zapatillas-new-balance-373-v2-hombre-moda-ml373pk2/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
+    },
     "zapatillas new balance mujer|27840": {
       "name": "Zapatillas New Balance Mujer",
       "price": 27840,
@@ -377,6 +401,12 @@
       "price": 30000,
       "link": "https://www.sevensport.com.ar/zapatillas-nike-revolution-6-nn-dc3729-003-mujer-running/p",
       "sent_at": "2026-07-08T21:48:30.749022+00:00"
+    },
+    "zapatillas nike revolution 6 next na hombre|30000": {
+      "name": "Zapatillas Nike Revolution 6 Next Na Hombre",
+      "price": 30000,
+      "link": "https://www.sevensport.com.ar/zapatillas-nike-revolution-6-next-na-hombre-running-dc3728-004/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
     },
     "zapatillas reebok court advance clip hombre|33000": {
       "name": "Zapatillas Reebok Court Advance Clip Hombre",
@@ -408,6 +438,12 @@
       "link": "https://www.sevensport.com.ar/zapatillas-topper-fast-029770-hombre-entrenamiento-029770/p",
       "sent_at": "2026-08-14T12:07:24.133610+00:00"
     },
+    "zapatillas topper temple|28470": {
+      "name": "Zapatillas Topper Temple",
+      "price": 28470,
+      "link": "https://www.sevensport.com.ar/zapatillas-unisex-topper-temple-entrenamiento-029685/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
+    },
     "zapatillas unisex converse chuck taylor all star ox|32850": {
       "name": "Zapatillas Unisex Converse Chuck Taylor All Star Ox",
       "price": 32850,
@@ -426,6 +462,12 @@
       "link": "https://www.sevensport.com.ar/zapatillas-unisex-head-pompei-entrenamiento-hfhc202c3h31/p",
       "sent_at": "2026-07-01T14:35:40.475756+00:00"
     },
+    "zapatillas unisex le coq sportif breakpoint classic|28470": {
+      "name": "Zapatillas Unisex Le Coq Sportif Breakpoint Classic",
+      "price": 28470,
+      "link": "https://www.sevensport.com.ar/zapatillas-hombre-le-coq-sportif-breakpoint-classic-moda-lfn9924068/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
+    },
     "zapatillas unisex le coq sportif breakpoint classic|37960": {
       "name": "Zapatillas Unisex Le Coq Sportif Breakpoint Classic",
       "price": 37960,
@@ -438,11 +480,29 @@
       "link": "https://www.sevensport.com.ar/zapatillas-unisex-reebok-court-advance-moda-100010616/p",
       "sent_at": "2026-06-08T18:14:30.703396+00:00"
     },
+    "zapatillas unisex reebok energen lite jp|22500": {
+      "name": "Zapatillas Unisex Reebok Energen Lite Jp",
+      "price": 22500,
+      "link": "https://www.sevensport.com.ar/zapatillas-reebok-energen-lite-jp-unisex-entrenamiento-gy3972/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
+    },
+    "zapatillas unisex reebok energen vector|22500": {
+      "name": "Zapatillas Unisex Reebok Energen Vector",
+      "price": 22500,
+      "link": "https://www.sevensport.com.ar/zapatillas-unisex-reebok-energen-vector-entrenamiento-100br0104/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
+    },
     "zapatillas unisex reebok smash edge|33000": {
       "name": "Zapatillas Unisex Reebok Smash Edge",
       "price": 33000,
       "link": "https://www.sevensport.com.ar/zapatillas-unisex-reebok-smash-edge-moda-100208245/p",
       "sent_at": "2026-06-08T18:14:30.703396+00:00"
+    },
+    "zapatillas unisex topper bilbao|16680": {
+      "name": "Zapatillas Unisex Topper Bilbao",
+      "price": 16680,
+      "link": "https://www.sevensport.com.ar/zapatillas-unisex-topper-bilbao-moda-026282/p",
+      "sent_at": "2026-08-15T09:57:45.984780+00:00"
     },
     "zapatillas unisex topper terre marror taffy|29560": {
       "name": "Zapatillas Unisex Topper Terre Marror Taffy",
