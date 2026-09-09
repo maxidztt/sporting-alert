@@ -1373,6 +1373,18 @@
       "price": 44999,
       "link": "https://www.dexter.com.ar/zapatillas-outdoor-topper-serra-mujer/TO89770.html",
       "sent_at": "2026-09-09T05:27:50.934825+00:00"
+    },
+    "zapatillas entrenamiento topper core hombre|39999": {
+      "name": "Zapatillas Entrenamiento Topper Core Hombre",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-entrenamiento-topper-core-hombre/TO27914.html",
+      "sent_at": "2026-09-09T10:15:09.560370+00:00"
+    },
+    "zapatillas outdoor topper serra hombre|44999": {
+      "name": "Zapatillas Outdoor Topper Serra Hombre",
+      "price": 44999,
+      "link": "https://www.dexter.com.ar/zapatillas-outdoor-topper-serra-hombre/TO89769.html",
+      "sent_at": "2026-09-09T10:15:09.560370+00:00"
     }
   }
 }
