@@ -1697,6 +1697,60 @@
       "price": 29999,
       "link": "https://www.dexter.com.ar/zapatillas-atomik-fairfaxx-hombre/AM211343851BVCN.html",
       "sent_at": "2026-09-25T10:41:50.322575+00:00"
+    },
+    "zapatillas atomik terrain mujer|34999": {
+      "name": "Zapatillas Atomik Terrain Mujer",
+      "price": 34999,
+      "link": "https://www.dexter.com.ar/zapatillas-atomik-terrain-mujer/AM111340881E4CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas atomik terrain mujer malla|34999": {
+      "name": "Zapatillas Atomik Terrain Mujer malla",
+      "price": 34999,
+      "link": "https://www.dexter.com.ar/zapatillas-atomik-terrain-mujer-malla/AM111340881X0CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas running atomik runforce hombre|39999": {
+      "name": "Zapatillas Running Atomik Runforce Hombre",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-running-atomik-runforce-hombre/AM21131579132CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas running atomik runforce hombre malla|39999": {
+      "name": "Zapatillas Running Atomik Runforce Hombre malla",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-running-atomik-runforce-hombre-malla/AM21131579110CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas running atomik runflex ii hombre|39999": {
+      "name": "Zapatillas Running Atomik Runflex II Hombre",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-running-atomik-runflex-ii-hombre/AM21131585132CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas running atomik runforce mujer malla|39999": {
+      "name": "Zapatillas Running Atomik Runforce Mujer malla",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-running-atomik-runforce-mujer-malla/AM21131579106CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas running atomik runflex ii|39999": {
+      "name": "Zapatillas Running Atomik Runflex II",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-running-atomik-runflex-ii/AM211315851C2CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas atomik runforce mujer|39999": {
+      "name": "Zapatillas Atomik Runforce Mujer",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-atomik-runforce-mujer/AM21131579103CN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
+    },
+    "zapatillas atomik fly hombre|39999": {
+      "name": "Zapatillas Atomik Fly Hombre",
+      "price": 39999,
+      "link": "https://www.dexter.com.ar/zapatillas-atomik-fly-hombre/AM211315041WBCN.html",
+      "sent_at": "2026-09-25T15:37:32.160929+00:00"
     }
   }
 }
