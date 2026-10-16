@@ -174,6 +174,12 @@
       "link": "https://www.dashdeportes.com.ar/zapatillas-fila-spritz-entrenamiento-hombre-4311383/p",
       "sent_at": "2026-06-08T03:46:43.977232+00:00"
     },
+    "zapatillas fila stride hombre|33999": {
+      "name": "Zapatillas FILA STRIDE HOMBRE",
+      "price": 33999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-fila-stride-entrenamiento-hombre-4311439/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
+    },
     "zapatillas head denver hombre|44999": {
       "name": "ZAPATILLAS HEAD DENVER HOMBRE",
       "price": 44999,
@@ -233,6 +239,12 @@
       "price": 39999,
       "link": "https://www.dashdeportes.com.ar/zapatillas-puma-darter-pro-running-mujer-9680489/p",
       "sent_at": "2026-09-17T23:07:46.827769+00:00"
+    },
+    "zapatillas puma flyer lite 3 adp hombre|39999": {
+      "name": "Zapatillas PUMA FLYER LITE 3 ADP HOMBRE",
+      "price": 39999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-puma-flyer-lite-3-adp-running-hombre-9680275/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
     },
     "zapatillas puma jada classic mujer|39999": {
       "name": "ZAPATILLAS PUMA JADA CLASSIC MUJER",
@@ -300,6 +312,12 @@
       "link": "https://www.dashdeportes.com.ar/zapatillas-topper-chalpa-ii-moda-hombre-1811059/p",
       "sent_at": "2026-07-29T12:20:26.702354+00:00"
     },
+    "zapatillas topper core hombre|32999": {
+      "name": "Zapatillas TOPPER CORE HOMBRE",
+      "price": 32999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-core-entrenamiento-hombre-1960082/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
+    },
     "zapatillas topper curb rosa mujer|34999": {
       "name": "Zapatillas TOPPER CURB ROSA MUJER",
       "price": 34999,
@@ -311,6 +329,30 @@
       "price": 39999,
       "link": "https://www.dashdeportes.com.ar/zapatillas-topper-curb-rosa-entrenamiento-mujer-1960005/p",
       "sent_at": "2026-08-04T12:31:08.471170+00:00"
+    },
+    "zapatillas topper drive 2 hombre|38999": {
+      "name": "Zapatillas TOPPER DRIVE 2 HOMBRE",
+      "price": 38999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-drive-2-entrenamiento-hombre-1960073/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
+    },
+    "zapatillas topper fast 2.0 hombre|33999": {
+      "name": "Zapatillas TOPPER FAST 2.0 HOMBRE",
+      "price": 33999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-fast-2-0-running-hombre-1960071/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
+    },
+    "zapatillas topper hera mujer|39999": {
+      "name": "ZAPATILLAS TOPPER HERA MUJER",
+      "price": 39999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-hera-entrenamiento-mujer-1960132/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
+    },
+    "zapatillas topper squat ii mujer|35999": {
+      "name": "Zapatillas TOPPER SQUAT II MUJER",
+      "price": 35999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-squat-ii-entrenamiento-mujer-1960086/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
     },
     "zapatillas topper strong pace iii mujer|30999": {
       "name": "Zapatillas TOPPER STRONG PACE III MUJER",
@@ -324,6 +366,18 @@
       "link": "https://www.dashdeportes.com.ar/zapatillas-topper-strong-pace-iii-running-mujer-1960079/p",
       "sent_at": "2026-07-29T14:52:51.497849+00:00"
     },
+    "zapatillas topper t 350 mesh unisex|35999": {
+      "name": "ZAPATILLAS TOPPER T 350 MESH UNISEX",
+      "price": 35999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-t-350-mesh-moda-unisex-1811052/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
+    },
+    "zapatillas topper t.350 unisex|35999": {
+      "name": "ZAPATILLAS TOPPER T.350 UNISEX",
+      "price": 35999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-t-350-moda-unisex-1960129/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
+    },
     "zapatillas topper temple plataforma mujer|28999": {
       "name": "Zapatillas TOPPER TEMPLE PLATAFORMA MUJER",
       "price": 28999,
@@ -335,6 +389,12 @@
       "price": 44999,
       "link": "https://www.dashdeportes.com.ar/zapatillas-topper-temple-plataforma-moda-mujer-1960111/p",
       "sent_at": "2026-07-29T14:52:51.497849+00:00"
+    },
+    "zapatillas topper temple unisex|39999": {
+      "name": "ZAPATILLAS TOPPER TEMPLE UNISEX",
+      "price": 39999,
+      "link": "https://www.dashdeportes.com.ar/zapatillas-topper-temple-outdoor-unisex-1810751/p",
+      "sent_at": "2026-10-16T22:26:08.005101+00:00"
     },
     "zapatillas topper x force velcro|39999": {
       "name": "ZAPATILLAS TOPPER X FORCE VELCRO",
